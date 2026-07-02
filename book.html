@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SkyFlHigh: The Boxing Manual</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Outfit:wght@400;600;800&display=swap');
+
+    :root {
+      --bg: #0A0A0A;
+      --surface: #121212;
+      --text: #F5F5F7;
+      --text-muted: #8E8E93;
+      --primary: #FF3B30; /* Electric Red */
+      --secondary: #FFD60A; /* Championship Gold */
+      --border: #222222;
+      --page-width: 8.5in;
+      --page-height: 11in;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+    }
+
+    /* Print-specific layout rules */
+    @page {
+      size: 8.5in 11in;
+      margin: 0;
+    }
+
+    .page {
+      width: var(--page-width);
+      height: var(--page-height);
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      background-color: var(--bg);
+      padding: 2.2in 1in 1.2in 1in; /* Spacious margins for premium reading */
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Header & Footer Rules */
+    .page-header {
+      position: absolute;
+      top: 0.8in;
+      left: 1in;
+      right: 1in;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.15in;
+    }
+
+    .page-header .brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 4px;
+      color: #FFF;
+    }
+
+    .page-header .doc-type {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--secondary);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .page-footer {
+      position: absolute;
+      bottom: 0.8in;
+      left: 1in;
+      right: 1in;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 0.15in;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Cover Page Specific Styles */
+    .cover-page {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: radial-gradient(circle at 80% 20%, #1c1010 0%, #0A0A0A 60%);
+    }
+
+    .cover-main {
+      margin-top: 3.5in;
+      padding: 0 1in;
+    }
+
+    .cover-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 8px;
+      color: var(--primary);
+      margin-bottom: 0.3in;
+    }
+
+    .cover-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 54px;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      color: #FFF;
+    }
+
+    .cover-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-top: 0.2in;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .cover-footer {
+      padding: 1in;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cover-footer-text {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      font-weight: 800;
+    }
+
+    /* Dedication Page Styles */
+    .dedication-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1.5in;
+    }
+
+    .dedication-text {
+      font-size: 18px;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .dedication-divider {
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary);
+      margin: 0.4in 0;
+    }
+
+    /* Table of Contents Page Styles */
+    .toc-list {
+      list-style: none;
+      margin-top: 0.4in;
+    }
+
+    .toc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.25in;
+    }
+
+    .toc-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFF;
+    }
+
+    .toc-dots {
+      flex-grow: 1;
+      border-bottom: 1px dashed var(--border);
+      margin: 0 0.15in;
+    }
+
+    .toc-page {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    /* Content Typography */
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 32px;
+      text-transform: uppercase;
+      color: #FFF;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.1in;
+    }
+
+    .subtitle-text {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.3in;
+    }
+
+    p {
+      margin-bottom: 0.25in;
+      font-size: 15px;
+      color: #E5E5EA;
+    }
+
+    ul {
+      margin-bottom: 0.25in;
+      padding-left: 0.25in;
+      color: #E5E5EA;
+    }
+
+    li {
+      margin-bottom: 0.12in;
+      font-size: 15px;
+    }
+
+    ol {
+      margin-bottom: 0.25in;
+      padding-left: 0.25in;
+      color: #E5E5EA;
+    }
+
+    /* Stylized boxes and alerts */
+    .insight-box {
+      background-color: var(--surface);
+      border-left: 4px solid var(--primary);
+      padding: 0.25in 0.35in;
+      margin: 0.3in 0;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .insight-box h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.08in;
+    }
+
+    .insight-box p {
+      font-size: 13.5px;
+      margin-bottom: 0;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= PAGE 1: COVER PAGE ================= -->
+  <div class="page cover-page">
+    <div></div>
+    <div class="cover-main">
+      <div class="cover-logo">SKYFLHIGH</div>
+      <div class="cover-title">The Boxing<br><span style="color: var(--primary);">Manual</span></div>
+      <div class="cover-subtitle">No fluff. No theories. Strictly fight physics.</div>
+    </div>
+    <div class="cover-footer">
+      <div class="cover-footer-text">VOLUME 01: THE FOUNDATION</div>
+      <div class="cover-footer-text" style="color: var(--primary);">NGN 15,000</div>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 2: DEDICATION PAGE ================= -->
+  <div class="page dedication-page">
+    <div class="dedication-text">
+      To those who show up when the gym is cold.<br>
+      To the ones who understand that the quiet, boring reps build the loud, flashing wins.
+    </div>
+    <div class="dedication-divider"></div>
+    <div class="dedication-text" style="font-size: 15px; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
+      This manual is for you.
+    </div>
+  </div>
+
+  <!-- ================= PAGE 3: WELCOME TO SKYFLHIGH ================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="brand">SKYFLHIGH</div>
+      <div class="doc-type">WELCOME TO THE COCKPIT</div>
+    </div>
+
+    <h1>Welcome to SkyFlHigh</h1>
+    <div class="subtitle-text">Elevating the Art of Boxing</div>
+
+    <p>You are holding the blueprint of something different.</p>
+    
+    <p>
+      At <strong>SkyFlHigh</strong>, we don't believe in limits, and we don't believe in staying grounded. The name itself is our instruction manual: we look up, we rise, and we stay there. Whether you are stepping into a boxing gym for the first time or you are looking to sharpen the tools you already have, you are not just a reader anymore. You are a member of a crew that refuses to settle.
+    </p>
+
+    <p>
+      Boxing is not just about throwing punches or hitting pads. It is about control. It is about how you carry yourself when you are tired, how you adjust your feet under pressure, and how you find your balance when the ground shifts.
+    </p>
+
+    <p>
+      When you wear our brand or train with our manuals, you are making a statement: <em>Strictly high execution. No lazy habits.</em>
+    </p>
+
+    <p style="margin-top: 0.4in; font-weight: 800; color: var(--secondary);">
+      Welcome to the family. Smile, relax your shoulders, and tuck your chin.<br>
+      We are going up.
+    </p>
+
+    <div class="page-footer">
+      <div>SKYFLHIGH BOXING MANUAL</div>
+      <div>PAGE 03</div>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 4: TABLE OF CONTENTS ================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="brand">SKYFLHIGH</div>
+      <div class="doc-type">TABLE OF CONTENTS</div>
+    </div>
+
+    <h1>Manual Contents</h1>
+    <div class="subtitle-text">Structure of the Foundation</div>
+
+    <ul class="toc-list">
+      <li class="toc-item">
+        <span class="toc-title">Welcome to SkyFlHigh</span>
+        <span class="toc-dots"></span>
+        <span class="toc-page">03</span>
+      </li>
+      <li class="toc-item">
+        <span class="toc-title">Chapter 1: Boxing Fundamentals</span>
+        <span class="toc-dots"></span>
+        <span class="toc-page">05</span>
+      </li>
+      <li class="toc-item">
+        <span class="toc-title">Chapter 2: Boxing Movement (Box-Step)</span>
+        <span class="toc-dots"></span>
+        <span class="toc-page">06</span>
+      </li>
+      <li class="toc-item">
+        <span class="toc-title">Chapter 3: Defensive Drill for Beginners</span>
+        <span class="toc-dots"></span>
+        <span class="toc-page">07</span>
+      </li>
+    </ul>
+
+    <div class="page-footer">
+      <div>SKYFLHIGH BOXING MANUAL</div>
+      <div>PAGE 04</div>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 5: CHAPTER 1 ================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="brand">SKYFLHIGH</div>
+      <div class="doc-type">01 / Boxing Fundamentals</div>
+    </div>
+
+    <h1>Boxing Fundamentals</h1>
+    <div class="subtitle-text">Your core balance and alignment blueprint</div>
+
+    <ul>
+      <li>Protect your chin with your fist at all times while using your elbow to lock your stomach sides</li>
+      <li>Give off your shoulder (a bit not too much), hip and leg instead of your chest squared up with your face straight.</li>
+      <li>A line connecting your toe (lead foot) to the heel of your back(rear) leg should remain to maintain balance. Maintain a certain fighting distance between both legs where you feel most balanced.</li>
+      <li>One leg flat footed, One leg on toe. On a regular stance, to get balance; lead foot flat footed and slightly slanted 60°-70° to the 180° line, rear foot's toe should be at angle 180° while on toe (heels shouldn't touch the ground).</li>
+      <li>While moving, whatever direction you are going land on toe first.</li>
+    </ul>
+
+    <div class="page-footer">
+      <div>SKYFLHIGH BOXING MANUAL</div>
+      <div>PAGE 05</div>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 6: CHAPTER 2 ================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="brand">SKYFLHIGH</div>
+      <div class="doc-type">02 / Boxing Movement</div>
+    </div>
+
+    <h1>Boxing Movement</h1>
+    <div class="subtitle-text">The Box-Step coordination system</div>
+
+    <p><strong>Movement Catalog:</strong></p>
+    <ol>
+      <li>Step In, Step Out</li>
+      <li>Step forward</li>
+      <li>Pull back, return</li>
+      <li>Step backward</li>
+      <li>Half side step left, return</li>
+      <li>Full Side step left</li>
+      <li>Half side step right, return</li>
+      <li>Full Side step right</li>
+    </ol>
+
+    <div class="insight-box">
+      <h3>Step In and Step Out</h3>
+      <p>This is where the lead foot goes in or forward while rear foot stays in position. The step out is returning the lead foot back to its original position.</p>
+    </div>
+
+    <div class="insight-box">
+      <h3>Step forward</h3>
+      <p>Simply after stepping in, instead of returning your lead leg back to original position, you take your rear leg which is on toe forward. And you have moved forward this way. Adjust/Reset yourself to find balance by following the fundamentals.</p>
+    </div>
+
+    <p>The Pull back and step backward apply same principles likewise the half steps and full steps.</p>
+
+    <div class="page-footer">
+      <div>SKYFLHIGH BOXING MANUAL</div>
+      <div>PAGE 06</div>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 7: CHAPTER 3 ================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="brand">SKYFLHIGH</div>
+      <div class="doc-type">03 / Defensive Drills</div>
+    </div>
+
+    <h1>Defensive Drill</h1>
+    <div class="subtitle-text">Drill and High Guard Integration</div>
+
+    <p>
+      Focus on the Boxing movement till you achieve a flow state where it becomes part of you. Remember to always hold your chin tight while moving but keep your mind in a relaxed state.
+    </p>
+
+    <div class="insight-box" style="border-left-color: var(--secondary);">
+      <h3>Beginner Drill</h3>
+      <p>While performing the box step, whenever you step in or step forward, always move with the high guard.</p>
+    </div>
+
+    <p>
+      <strong>High Guard:</strong> The High guard is essential for blocking straight punches like the Jab (1) and Cross (2). While holding your chin and your elbow protects your body, take your fists from the position of your chin to your head while ensuring your vision is not disturbed (try not to blink or use your gloves or hands to cover your eyes).
+    </p>
+
+    <p>
+      Apply the high guard whenever you move forward since it's your opponent's range you are entering and you can get punched.
+    </p>
+
+    <div class="page-footer">
+      <div>SKYFLHIGH BOXING MANUAL</div>
+      <div>PAGE 07</div>
+    </div>
+  </div>
+
+</body>
+</html>

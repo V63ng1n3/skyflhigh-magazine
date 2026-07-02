@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyFlHigh: Visual Movement Player</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Outfit:wght@300;400;600;700;800&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #060606;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 28px;
+      width: 100%;
+      max-width: 740px;
+      padding: 2rem 2rem 1.8rem;
+      box-shadow:
+        0 25px 50px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,255,255,0.03) inset;
+    }
+
+    /* ── Header ── */
+    .hdr { text-align: center; margin-bottom: 0.8rem; }
+
+    .hdr-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px; letter-spacing: 6px;
+      color: #FF3B30; font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .hdr h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px; font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.3rem;
+    }
+
+    .hdr-badge {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.2rem 0.9rem;
+      background: rgba(255,214,10,0.08);
+      border: 1px solid rgba(255,214,10,0.2);
+      border-radius: 99px;
+      font-size: 10px; font-weight: 800;
+      color: #FFD60A; letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── Phase dots ── */
+    .phases {
+      display: flex; justify-content: center;
+      align-items: center; gap: 5px;
+      margin: 0.9rem 0;
+    }
+
+    .ph-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: #1a1a1a; border: 1.5px solid #2a2a2a;
+      transition: all 0.3s ease;
+    }
+
+    .ph-dot.now {
+      background: #FF3B30; border-color: #FF3B30;
+      box-shadow: 0 0 10px rgba(255,59,48,0.5);
+      transform: scale(1.35);
+    }
+
+    .ph-dot.past {
+      background: #FFD60A; border-color: #FFD60A;
+    }
+
+    .ph-line {
+      width: 16px; height: 1.5px;
+      background: #1e1e1e;
+    }
+
+    /* ── Stage ── */
+    .stage {
+      background: #080808;
+      border: 1px solid #181818;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+
+    .stage::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+      background-size: 16px 16px;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .stage svg {
+      display: block; width: 100%; height: auto;
+      position: relative; z-index: 2;
+    }
+
+    /* ── Boxer part transitions ── */
+    .bpart {
+      transition: transform 0.6s cubic-bezier(0.33, 1.4, 0.6, 1);
+    }
+
+    .bpart-snap {
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Glow effects ── */
+    .lead-glow { filter: drop-shadow(0 0 8px rgba(255,59,48,0.25)); }
+    .rear-glow { filter: drop-shadow(0 0 8px rgba(255,214,10,0.2)); }
+
+    /* ── Impact burst ── */
+    @keyframes impact-burst {
+      0% { transform: scale(0.5); opacity: 0.9; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    #impact { opacity: 0; pointer-events: none; }
+    #impact.on { opacity: 1; }
+    #impact.on .burst { animation: impact-burst 0.55s ease-out forwards; }
+
+    /* ── Idle breathing on lead glove ── */
+    @keyframes breathe {
+      0%, 100% { filter: drop-shadow(0 0 6px rgba(255,59,48,0.2)); }
+      50% { filter: drop-shadow(0 0 16px rgba(255,59,48,0.5)); }
+    }
+
+    .breathing { animation: breathe 2.8s ease-in-out infinite; }
+
+    /* ── Jab trail ── */
+    #trail { opacity: 0; transition: opacity 0.25s ease; }
+    #trail.on { opacity: 1; }
+
+    /* ── Controls ── */
+    .ctrls {
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 0.6rem;
+    }
+
+    .ctrl-mid { text-align: center; flex: 1; }
+
+    .ctrl-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    .ctrl-sub {
+      font-size: 10px; color: #555;
+      font-family: monospace; margin-top: 2px;
+    }
+
+    .btn {
+      padding: 0.7rem 1.3rem; border-radius: 12px;
+      font-weight: 800; font-size: 12px; cursor: pointer;
+      text-transform: uppercase; letter-spacing: 1px;
+      border: none; font-family: 'Outfit', sans-serif;
+      transition: all 0.15s ease; white-space: nowrap;
+    }
+
+    .btn-pri { background: #FF3B30; color: #fff; }
+    .btn-pri:hover { background: #e52e24; transform: translateY(-1px); }
+    .btn-pri:active { transform: translateY(0); }
+
+    .btn-sec {
+      background: #151515; color: #aaa;
+      border: 1px solid #252525;
+    }
+    .btn-sec:hover { background: #1e1e1e; }
+
+    /* ── Description panel ── */
+    .desc {
+      margin-top: 1.1rem; padding: 1rem 1.2rem;
+      background: #0c0c0c; border: 1px solid #1a1a1a;
+      border-radius: 14px;
+    }
+
+    .desc-body {
+      font-size: 13.5px; color: #aaa; line-height: 1.65;
+    }
+
+    .desc-body strong { color: #FFD60A; }
+
+    .tip {
+      margin-top: 0.65rem; padding: 0.5rem 0.85rem;
+      background: rgba(255,59,48,0.06);
+      border: 1px solid rgba(255,59,48,0.12);
+      border-radius: 10px;
+      font-size: 11.5px; color: #ff6b62;
+      font-weight: 600; line-height: 1.5;
+    }
+
+    .tip::before { content: '🥊  '; }
+
+    /* ── Keyboard hint ── */
+    .kb-hint {
+      text-align: center;
+      margin-top: 0.8rem;
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 0.5px;
+    }
+
+    .kb-hint kbd {
+      background: #1a1a1a;
+      border: 1px solid #252525;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: monospace;
+      font-size: 10px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="hdr">
+    <div class="hdr-brand">SkyFlHigh Motion Lab</div>
+    <h1>Visual Movement Player</h1>
+    <div class="hdr-badge">Step In · Jab (1) · Reset</div>
+  </div>
+
+  <!-- Phase Progress -->
+  <div class="phases" id="phases"></div>
+
+  <!-- Animation Stage -->
+  <div class="stage">
+    <svg viewBox="0 0 500 370" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Gradients -->
+      <defs>
+        <linearGradient id="trail-grad" x1="1" y1="0" x2="0" y2="0">
+          <stop offset="0%" stop-color="#FF3B30" stop-opacity="0.04"/>
+          <stop offset="100%" stop-color="#FF3B30" stop-opacity="0.4"/>
+        </linearGradient>
+        <radialGradient id="impact-grad">
+          <stop offset="0%" stop-color="#FFD60A" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#FF3B30" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Floor line -->
+      <line x1="30" y1="338" x2="470" y2="338" stroke="#151515" stroke-width="1"/>
+
+      <!-- Opponent direction label -->
+      <text x="50" y="32" fill="#2a2a2a" font-family="Montserrat" font-size="8" font-weight="900" letter-spacing="3" text-transform="uppercase">&#x2190; OPPONENT</text>
+
+      <!-- Punch trajectory guide -->
+      <line x1="88" y1="90" x2="250" y2="90" stroke="#141414" stroke-width="1" stroke-dasharray="3 6"/>
+
+      <!-- Target zone indicator -->
+      <line x1="88" y1="45" x2="88" y2="150" stroke="#FF3B30" stroke-width="1.5" opacity="0.1" stroke-dasharray="4 3"/>
+
+      <!-- Ghost stance (original position outline) -->
+      <g opacity="0.04">
+        <circle cx="290" cy="78" r="26" fill="#fff"/>
+        <rect x="265" y="106" width="50" height="92" rx="10" fill="#fff"/>
+        <line x1="292" y1="198" x2="336" y2="305" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+        <line x1="280" y1="198" x2="238" y2="305" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="248" cy="82" r="14" fill="#fff"/>
+        <circle cx="320" cy="86" r="14" fill="#fff"/>
+      </g>
+
+      <!-- Jab motion trail -->
+      <g id="trail">
+        <line x1="252" y1="112" x2="100" y2="82" stroke="url(#trail-grad)" stroke-width="10" stroke-linecap="round"/>
+        <!-- Speed lines -->
+        <line x1="210" y1="76" x2="155" y2="76" stroke="#FF3B30" stroke-width="1" opacity="0.18"/>
+        <line x1="200" y1="86" x2="135" y2="86" stroke="#FF3B30" stroke-width="1.5" opacity="0.22"/>
+        <line x1="205" y1="96" x2="145" y2="96" stroke="#FF3B30" stroke-width="1" opacity="0.14"/>
+      </g>
+
+      <!-- Impact flash -->
+      <g id="impact">
+        <circle class="burst" cx="93" cy="82" r="22" fill="url(#impact-grad)"/>
+        <circle class="burst" cx="93" cy="82" r="10" fill="#FFD60A" opacity="0.35"/>
+        <!-- Star rays -->
+        <line class="burst" x1="65" y1="82" x2="52" y2="82" stroke="#FFD60A" stroke-width="2" opacity="0.6"/>
+        <line class="burst" x1="93" y1="54" x2="93" y2="42" stroke="#FFD60A" stroke-width="2" opacity="0.6"/>
+        <line class="burst" x1="70" y1="58" x2="60" y2="48" stroke="#FFD60A" stroke-width="1.5" opacity="0.4"/>
+        <line class="burst" x1="70" y1="106" x2="60" y2="116" stroke="#FFD60A" stroke-width="1.5" opacity="0.4"/>
+      </g>
+
+      <!-- ══════ BOXER FIGURE ══════ -->
+
+      <!-- Rear leg -->
+      <g id="rear-leg" class="bpart">
+        <line x1="292" y1="198" x2="336" y2="305" stroke="#222" stroke-width="11" stroke-linecap="round"/>
+        <ellipse cx="342" cy="324" rx="23" ry="9" fill="rgba(255,214,10,0.1)" stroke="#FFD60A" stroke-width="1.5"/>
+        <text x="329" y="328" fill="#FFD60A" font-family="Montserrat" font-size="7" font-weight="900" letter-spacing="1">REAR</text>
+      </g>
+
+      <!-- Lead leg -->
+      <g id="lead-leg" class="bpart">
+        <line x1="280" y1="198" x2="238" y2="305" stroke="#222" stroke-width="11" stroke-linecap="round"/>
+        <ellipse cx="230" cy="324" rx="23" ry="9" fill="rgba(255,59,48,0.1)" stroke="#FF3B30" stroke-width="1.5"/>
+        <text x="217" y="328" fill="#FF3B30" font-family="Montserrat" font-size="7" font-weight="900" letter-spacing="1">LEAD</text>
+      </g>
+
+      <!-- Torso -->
+      <g id="torso" class="bpart">
+        <rect x="265" y="106" width="50" height="92" rx="10" fill="#141414" stroke="#282828" stroke-width="1.5"/>
+        <!-- Shoulder joints -->
+        <circle cx="265" cy="116" r="4.5" fill="#181818" stroke="#333" stroke-width="1"/>
+        <circle cx="315" cy="116" r="4.5" fill="#181818" stroke="#333" stroke-width="1"/>
+      </g>
+
+      <!-- Head -->
+      <g id="head" class="bpart">
+        <circle cx="290" cy="78" r="26" fill="#141414" stroke="#333" stroke-width="2"/>
+        <!-- Chin guard arc -->
+        <path d="M274 90 Q290 100 306 90" fill="none" stroke="#252525" stroke-width="1.5"/>
+      </g>
+
+      <!-- Rear glove -->
+      <g id="rear-glove" class="bpart rear-glow">
+        <circle cx="320" cy="86" r="15" fill="#FFD60A" stroke="#ffe44a" stroke-width="2"/>
+        <text x="315" y="90" fill="#000" font-family="Montserrat" font-size="9" font-weight="900">R</text>
+      </g>
+
+      <!-- Lead glove -->
+      <g id="lead-glove" class="bpart lead-glow breathing">
+        <circle cx="248" cy="82" r="15" fill="#FF3B30" stroke="#ff5147" stroke-width="2"/>
+        <text x="243" y="86" fill="#fff" font-family="Montserrat" font-size="9" font-weight="900">L</text>
+      </g>
+
+    </svg>
+  </div>
+
+  <!-- Controls -->
+  <div class="ctrls">
+    <button class="btn btn-sec" onclick="prev()">&#9664; Back</button>
+    <div class="ctrl-mid">
+      <div class="ctrl-title" id="title">Orthodox Stance</div>
+      <div class="ctrl-sub" id="counter">0 / 4</div>
+    </div>
+    <button class="btn btn-pri" id="nxt" onclick="next()">Next &#9654;</button>
+  </div>
+
+  <!-- Description Panel -->
+  <div class="desc">
+    <div class="desc-body" id="desc"></div>
+    <div class="tip" id="tip"></div>
+  </div>
+
+  <div class="kb-hint">
+    Use <kbd>&#x2190;</kbd> <kbd>&#x2192;</kbd> arrow keys or <kbd>Space</kbd> to navigate
+  </div>
+</div>
+
+<script>
+  let cur = 0;
+
+  const S = [
+    {
+      title: "Orthodox Stance",
+      desc: '<strong>Guard Up:</strong> Lead (left) fist protects your chin from the front. Rear (right) fist guards the side. Elbows lock your body. Weight balanced 50/50 between both feet. Lead foot flat and slightly slanted, rear foot on toe.',
+      tip: 'Protect your chin with your fist at all times while using your elbow to lock your stomach sides.',
+      t: {
+        'lead-glove': '', 'rear-glove': '',
+        'lead-leg': '', 'rear-leg': '',
+        'torso': '', 'head': ''
+      },
+      trail: false, impact: false, snap: false
+    },
+    {
+      title: "Step In + High Guard",
+      desc: '<strong>Step In:</strong> Slide your lead foot forward into your opponent\'s range. Raise both gloves to high guard — fists move from chin to forehead level. Keep your vision clear, don\'t blink or cover your eyes. Rear foot stays anchored in position.',
+      tip: 'Whenever you step in or step forward, always move with the high guard — you\'re entering your opponent\'s range and you can get punched.',
+      t: {
+        'lead-glove': 'translate(-14, -14)',
+        'rear-glove': 'translate(-6, -12)',
+        'lead-leg': 'translate(-35, 0)',
+        'rear-leg': '',
+        'torso': 'translate(-18, 0)',
+        'head': 'translate(-18, -3)'
+      },
+      trail: false, impact: false, snap: false
+    },
+    {
+      title: "Jab Extends — FIRE!",
+      desc: '<strong>The Jab (1):</strong> Your lead fist fires straight forward like a piston. Shoulder rotates to extend range and shield your chin. Rear hand stays glued to guard position. Power comes from the snap, not the lean — don\'t lunge your head forward.',
+      tip: 'The Jab is a touch, a rangefinder. It blinds your opponent and stops their jab. Snap it out fast and bring it home even faster.',
+      t: {
+        'lead-glove': 'translate(-155, 0)',
+        'rear-glove': 'translate(-8, -10)',
+        'lead-leg': 'translate(-35, 0)',
+        'rear-leg': '',
+        'torso': 'translate(-24, 0) rotate(-4)',
+        'head': 'translate(-24, -1)'
+      },
+      trail: true, impact: true, snap: true
+    },
+    {
+      title: "Snap Back to Guard",
+      desc: '<strong>Retract:</strong> Your lead hand snaps back to chin as fast as it went out — faster even. The jab is a two-way street. A lazy retraction gets you countered. Your rear hand never left its guard position.',
+      tip: 'After jabbing your opponent, expect a reaction — you\'ve triggered their weapons. See a target between your gloves before responding.',
+      t: {
+        'lead-glove': 'translate(-14, -10)',
+        'rear-glove': 'translate(-6, -10)',
+        'lead-leg': 'translate(-35, 0)',
+        'rear-leg': '',
+        'torso': 'translate(-18, 0)',
+        'head': 'translate(-18, -2)'
+      },
+      trail: false, impact: false, snap: true
+    },
+    {
+      title: "Step Out & Reset",
+      desc: '<strong>Reset:</strong> Slide your lead foot back to its original position. Drop guard back to chin level. Re-establish your fighting distance and balance. You\'re back in your stance — ready for the next move or combination.',
+      tip: 'It\'s better to not do anything than to do the wrong thing just because you are tired. Bad habits are born from lazy resets.',
+      t: {
+        'lead-glove': '', 'rear-glove': '',
+        'lead-leg': '', 'rear-leg': '',
+        'torso': '', 'head': ''
+      },
+      trail: false, impact: false, snap: false
+    }
+  ];
+
+  // Build phase dots
+  const pb = document.getElementById('phases');
+  S.forEach(function(_, i) {
+    if (i > 0) {
+      var c = document.createElement('div');
+      c.className = 'ph-line';
+      pb.appendChild(c);
+    }
+    var d = document.createElement('div');
+    d.className = 'ph-dot' + (i === 0 ? ' now' : '');
+    d.id = 'pd' + i;
+    pb.appendChild(d);
+  });
+
+  var parts = ['lead-glove', 'rear-glove', 'lead-leg', 'rear-leg', 'torso', 'head'];
+
+  function render() {
+    var s = S[cur];
+
+    // Set transition speed (snap for punch steps)
+    parts.forEach(function(id) {
+      var el = document.getElementById(id);
+      // Reset classes
+      el.setAttribute('class', s.snap ? 'bpart-snap' : 'bpart');
+      // Re-add glow classes
+      if (id === 'lead-glove') {
+        el.classList.add('lead-glow');
+        // Breathing only on idle stance
+        if (cur === 0 || cur === S.length - 1) el.classList.add('breathing');
+      }
+      if (id === 'rear-glove') el.classList.add('rear-glow');
+    });
+
+    // Apply transforms
+    for (var id in s.t) {
+      document.getElementById(id).style.transform = s.t[id];
+    }
+
+    // Update phase dots
+    S.forEach(function(_, i) {
+      var d = document.getElementById('pd' + i);
+      d.className = 'ph-dot';
+      if (i < cur) d.classList.add('past');
+      if (i === cur) d.classList.add('now');
+    });
+
+    // Update text
+    document.getElementById('title').textContent = s.title;
+    document.getElementById('counter').textContent = cur + ' / ' + (S.length - 1);
+    document.getElementById('desc').innerHTML = s.desc;
+    document.getElementById('tip').textContent = s.tip;
+
+    // Trail effect
+    document.getElementById('trail').setAttribute('class', s.trail ? 'on' : '');
+
+    // Impact effect (re-trigger animation)
+    var imp = document.getElementById('impact');
+    imp.setAttribute('class', '');
+    if (s.impact) {
+      // Force reflow to restart CSS animation
+      void imp.offsetWidth;
+      imp.setAttribute('class', 'on');
+    }
+
+    // Update button text
+    var nxt = document.getElementById('nxt');
+    nxt.innerHTML = cur === S.length - 1 ? '&#8634; Replay' : 'Next &#9654;';
+  }
+
+  function next() {
+    cur = cur >= S.length - 1 ? 0 : cur + 1;
+    render();
+  }
+
+  function prev() {
+    if (cur > 0) {
+      cur--;
+      render();
+    }
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      next();
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prev();
+    }
+  });
+
+  // Initial render
+  render();
+</script>
+
+</body>
+</html>

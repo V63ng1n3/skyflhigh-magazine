@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyFlHigh Magazine — Rise. Inspire. FlHigh</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Outfit:wght@300;400;600;700;800;900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0A0A0A;
+      --black-2: #0D0D0D;
+      --black-3: #111111;
+      --surface: #161616;
+      --surface-2: #1C1C1C;
+      --border: #222222;
+      --text: #F5F5F7;
+      --text-muted: #8E8E93;
+      --gold: #FFD60A;
+      --gold-light: #FFE44D;
+      --gold-dark: #C5A028;
+      --gold-subtle: rgba(255, 214, 10, 0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--black);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    section { position: relative; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 5vw, 48px);
+      margin-bottom: 20px;
+      color: #FFF;
+    }
+
+    .section-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text-muted);
+      font-weight: 400;
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .gold-text { color: var(--gold); }
+    .text-muted { color: var(--text-muted); }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 24px 0;
+    }
+
+    .divider-center { margin: 24px auto; }
+
+    /* ══════════════════════════════════════════ COVER ════════════════════════ */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 24px;
+      background: radial-gradient(ellipse at 50% 30%, #1a1800 0%, var(--black) 65%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,214,10,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cover-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 6px;
+      color: var(--gold);
+    }
+
+    .cover-edition {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .cover-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      padding: 60px 0;
+    }
+
+    .cover-motto {
+      font-size: clamp(12px, 1.5vw, 15px);
+      font-weight: 700;
+      letter-spacing: 5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .cover-title {
+      font-size: clamp(48px, 12vw, 120px);
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      color: #FFF;
+    }
+
+    .cover-title .gold { color: var(--gold); }
+
+    .cover-taglines {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cover-tagline {
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .cover-tagline .highlight { color: var(--gold-light); font-weight: 800; }
+
+    .cover-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cover-bottom-text {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+    }
+
+    .cover-scroll {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cover-scroll span {
+      display: inline-block;
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50% { transform: translateY(4px); opacity: 1; }
+    }
+
+    /* ══════════════════════════════════════════ WELCOME ═════════════════════ */
+    .welcome {
+      padding: 100px 0 80px;
+      background: var(--black-2);
+    }
+
+    .welcome-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .welcome-image {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .welcome-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .welcome-content .divider { margin-left: 0; }
+
+    .welcome-text {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .welcome-text strong { color: var(--text); }
+
+    .welcome-text .em {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .welcome-quote {
+      margin-top: 32px;
+      padding: 24px 32px;
+      background: var(--black-3);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .welcome-quote p {
+      font-size: 18px;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .welcome-quote .attribution {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gold);
+      font-style: normal;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════ DEDICATION ══════════════════ */
+    .dedication {
+      padding: 100px 0;
+      background: var(--black);
+      text-align: center;
+    }
+
+    .dedication-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .dedication-text {
+      font-size: clamp(17px, 2.5vw, 22px);
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    .dedication-text strong {
+      color: var(--text);
+      font-style: normal;
+    }
+
+    .dedication-signoff {
+      margin-top: 32px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════ DECLARATION ════════════════ */
+    .declaration {
+      padding: 100px 0;
+      background: var(--black-2);
+    }
+
+    .declaration-card {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 60px 48px;
+      background: var(--black-3);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .declaration-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+    }
+
+    .declaration-card::after {
+      content: '✦';
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      font-size: 24px;
+      color: var(--gold);
+      opacity: 0.3;
+    }
+
+    .declaration-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      border: 1px solid var(--gold);
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .declaration-card h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      margin-bottom: 24px;
+    }
+
+    .declaration-card p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .declaration-card .em-gold { color: var(--gold); font-weight: 700; }
+
+    .declaration-signoff {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════ PHILOSOPHY ═════════════════ */
+    .philosophy {
+      padding: 100px 0;
+      background: var(--black);
+    }
+
+    .philosophy-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .philosophy-card {
+      padding: 40px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: center;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .philosophy-card:hover {
+      border-color: var(--gold-dark);
+      transform: translateY(-4px);
+    }
+
+    .philosophy-card .icon {
+      font-size: 36px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .philosophy-card h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: var(--gold);
+    }
+
+    .philosophy-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════ VOCABULARY ═════════════════ */
+    .vocabulary {
+      padding: 100px 0;
+      background: var(--black-2);
+    }
+
+    .vocab-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .vocab-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 28px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .vocab-term {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .vocab-pronounce {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 400;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .vocab-def {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+
+    .vocab-def strong { color: var(--text); }
+
+    /* ══════════════════════════════════════════ MERCH ══════════════════════ */
+    .merch {
+      padding: 100px 0;
+      background: var(--black);
+    }
+
+    .merch-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .merch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .merch-image {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .merch-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .merch-info h3 {
+      font-size: clamp(22px, 3vw, 32px);
+      margin-bottom: 16px;
+    }
+
+    .merch-info p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .merch-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--gold-subtle);
+      border: 1px solid rgba(255,214,10,0.15);
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .merch-label {
+      margin-top: 24px;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════ DOWNLOAD ═══════════════════ */
+    .download {
+      padding: 120px 0;
+      background: radial-gradient(ellipse at 50% 50%, #1a1800 0%, var(--black) 65%);
+      text-align: center;
+    }
+
+    .download-content {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .download-content .divider { margin: 24px auto; }
+
+    .download-content h2 {
+      font-size: clamp(30px, 5vw, 50px);
+    }
+
+    .download-content p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 40px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255,214,10,0.25);
+    }
+
+    .download-btn:active {
+      transform: translateY(0);
+    }
+
+    .download-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .download-note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ══════════════════════════════════════════ FOOTER ═════════════════════ */
+    .footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      background: var(--black);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--gold);
+    }
+
+    .footer-motto {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ══════════════════════════════════════════ RESPONSIVE ═════════════════ */
+    @media (max-width: 768px) {
+      .welcome-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .welcome-image {
+        order: -1;
+        max-height: 360px;
+      }
+
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vocab-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .merch-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .merch-image { order: -1; }
+
+      .declaration-card {
+        padding: 40px 24px;
+      }
+
+      .cover-title {
+        letter-spacing: -1px;
+      }
+
+      .cover-taglines { gap: 4px; }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+
+      .welcome, .dedication, .declaration, .philosophy, .vocabulary, .merch, .download {
+        padding: 60px 0;
+      }
+
+      .cover { padding: 24px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════
+       1. COVER
+       ════════════════════════════════════════════════════════════ -->
+  <section class="cover" id="top">
+    <div class="cover-top">
+      <div class="cover-brand">SKYFLHIGH</div>
+      <div class="cover-edition">Volume 01 — The Movement</div>
+    </div>
+    <div class="cover-center">
+      <div class="cover-motto">Rise. Inspire. FlHigh.</div>
+      <h1 class="cover-title">
+        SkyFlHigh<br>
+        <span class="gold">Magazine</span>
+      </h1>
+      <div class="cover-taglines">
+        <div class="cover-tagline">Feel the <span class="highlight">Freedom</span></div>
+        <div class="cover-tagline"><span class="highlight">Crafted</span> for the Bold</div>
+      </div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-bottom-text">The Way of the FlHigh</div>
+      <div class="cover-scroll"><span>↓</span> Scroll to explore</div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       2. WELCOME TO SKYFLHIGH
+       ════════════════════════════════════════════════════════════ -->
+  <section class="welcome" id="welcome">
+    <div class="container">
+      <div class="section-label">Welcome to the Movement</div>
+      <div class="welcome-grid">
+        <div class="welcome-content">
+          <h2 class="section-title">More Than a Brand.<br>It's a <span class="gold-text">Lifestyle</span>.</h2>
+          <div class="divider"></div>
+          <p class="welcome-text">
+            <strong>SkyFlHigh</strong> is not just a name on a tag — it's a mindset. A refusal to stay grounded. A commitment to rise — in the gym, in your craft, and in how you move through life.
+          </p>
+          <p class="welcome-text">
+            Whether you're throwing your first jab or taking your next big step, you belong to a crew that demands <span class="em">strictly high execution</span>. No lazy habits. No shortcuts.
+          </p>
+          <p class="welcome-text">
+            This magazine is your entry point. Inside, you'll find the philosophy, the vocabulary, and the first step toward <span class="em">Uhuru</span> — freedom.
+          </p>
+          <div class="welcome-quote">
+            <p>"We don't believe in limits, and we don't believe in staying grounded. The name itself is our instruction manual: we look up, we rise, and we stay there."</p>
+            <div class="attribution">— The SkyFlHigh Crew</div>
+          </div>
+        </div>
+        <div class="welcome-image">
+          <img src="Image folder/SF 001.jpeg" alt="SkyFlHigh - Fit individual wearing the brand" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       3. DEDICATION
+       ════════════════════════════════════════════════════════════ -->
+  <section class="dedication" id="dedication">
+    <div class="container">
+      <div class="dedication-content">
+        <div class="section-label">Dedication</div>
+        <div class="divider divider-center"></div>
+        <p class="dedication-text">
+          To those who show up when the gym is cold.<br>
+          To the ones who understand that the quiet, boring reps build the loud, flashing wins.
+        </p>
+        <div class="divider divider-center" style="margin-top: 40px;"></div>
+        <p class="dedication-text">
+          <strong>This magazine is for you.</strong><br>
+          Train hard. Stay balanced. Keep flying high.
+        </p>
+        <div class="dedication-signoff">— SkyFlHigh</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       4. THE FLHIGH DECLARATION
+       ════════════════════════════════════════════════════════════ -->
+  <section class="declaration" id="declaration">
+    <div class="container">
+      <div class="declaration-card">
+        <div class="declaration-badge">Official Certification</div>
+        <h2>The FlHigh<br><span class="gold-text">Declaration</span></h2>
+        <p>
+          By reading this magazine front to back, you are no longer a spectator. You are declaring yourself ready to adopt the <span class="em-gold">FlHigh mindset</span> — to Rise, Inspire, and FlHigh.
+        </p>
+        <p>
+          This is your first step toward <span class="em-gold">Uhuru</span>. Freedom from limits. Freedom from lazy habits. Freedom from the mindset that keeps you grounded.
+        </p>
+        <p>
+          Pay attention to every page. Absorb the philosophy. When you reach the end, the first door opens — <span class="em-gold">the Beginner's Guide</span> awaits.
+        </p>
+        <p style="font-style: italic; font-size: 15px;">
+          "The path isn't finished. But the first step? You've already taken it."
+        </p>
+        <div class="declaration-signoff">Signed — The SkyFlHigh Crew</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       5. PHILOSOPHY OF MOVEMENT
+       ════════════════════════════════════════════════════════════ -->
+  <section class="philosophy" id="philosophy">
+    <div class="container">
+      <div class="philosophy-header">
+        <div class="section-label">Our Philosophy</div>
+        <h2 class="section-title">The Way of <span class="gold-text">Movement</span></h2>
+        <p class="section-sub" style="margin: 0 auto;">
+          SkyFlHigh is built on movement — not just physical, but mental and spiritual. To move is to grow. To grow is to rise.
+        </p>
+      </div>
+      <div class="philosophy-grid">
+        <div class="philosophy-card">
+          <span class="icon">🏔️</span>
+          <h3>Rise</h3>
+          <p>Elevate every aspect of your life. In the gym, at work, in your relationships — complacency is the enemy. The only direction is up.</p>
+        </div>
+        <div class="philosophy-card">
+          <span class="icon">🔥</span>
+          <h3>Inspire</h3>
+          <p>Your growth fuels others. When you move with purpose, you become the example. Show others what's possible when you refuse to stay grounded.</p>
+        </div>
+        <div class="philosophy-card">
+          <span class="icon">🦅</span>
+          <h3>FlHigh</h3>
+          <p>To fly high is to operate at your peak. It's the state where mind, body, and spirit move as one. No hesitation. No fear. Just flight.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       6. SKYFLHIGH VOCABULARY
+       ════════════════════════════════════════════════════════════ -->
+  <section class="vocabulary" id="vocabulary">
+    <div class="container">
+      <div class="vocab-header">
+        <div class="section-label">Speak the Culture</div>
+        <h2 class="section-title">SkyFlHigh <span class="gold-text">Vocabulary</span></h2>
+        <p class="section-sub" style="margin: 0 auto;">
+          Every movement has its language. Here's how we speak.
+        </p>
+      </div>
+      <div class="vocab-grid">
+        <div class="vocab-item">
+          <div class="vocab-term">FlHigh <span class="vocab-pronounce">/flaɪ haɪ/</span></div>
+          <div class="vocab-def">To <strong>fly high</strong>. To operate at your peak state — mentally, physically, spiritually. The ultimate expression of the SkyFlHigh mindset. <em>"Stay focused and FlHigh."</em></div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-term">Uhuru <span class="vocab-pronounce">/uːˈhuːruː/</span></div>
+          <div class="vocab-def"><strong>Freedom</strong>. Liberty from limits, bad habits, and the gravity of mediocrity. The first step to Uhuru is awareness. The second is action.</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-term">The Climb <span class="vocab-pronounce">/ðə klaɪm/</span></div>
+          <div class="vocab-def">The <strong>journey</strong> of self-improvement. There's no elevator to the top — every rep, every step, every setback is part of the climb.</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-term">Strictly High Execution <span class="vocab-pronounce">/ˈstrɪktli haɪ ˌɛksɪˈkjuːʃən/</span></div>
+          <div class="vocab-def">Our <strong>standard</strong>. No half-effort. No shortcuts. Every move, every choice is made with precision and purpose. <em>"Strictly high execution. No lazy habits."</em></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       7. MERCH SHOWCASE
+       ════════════════════════════════════════════════════════════ -->
+  <section class="merch" id="merch">
+    <div class="container">
+      <div class="merch-header">
+        <div class="section-label">Wear the Movement</div>
+        <h2 class="section-title"><span class="gold-text">Crafted</span> for the Bold</h2>
+        <p class="section-sub" style="margin: 0 auto;">
+          SkyFlHigh merchandise is built for those who move with purpose. Premium quality. Bold design. Strictly high execution.
+        </p>
+      </div>
+      <div class="merch-grid">
+        <div class="merch-image">
+          <img src="Image folder/SF 001 2.jpeg" alt="SkyFlHigh Merchandise" loading="lazy">
+        </div>
+        <div class="merch-info">
+          <div class="merch-tag">New Arrival</div>
+          <h3>FlHigh <span class="gold-text">Training Pants</span></h3>
+          <p>
+            Engineered for movement. Built for those who refuse to stay grounded. Our signature training pants combine premium comfort with the bold SkyFlHigh identity.
+          </p>
+          <p>
+            Whether you're in the gym or representing the movement on the streets, wear it with the knowledge that you're part of something bigger.
+          </p>
+          <div class="merch-label">More drops coming soon. Stay connected.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       8. BEGINNER'S GUIDE ACCESS
+       ════════════════════════════════════════════════════════════ -->
+  <section class="download" id="guide">
+    <div class="container">
+      <div class="download-content">
+        <div class="section-label">Your Next Step</div>
+        <div class="divider divider-center"></div>
+        <h2>Unlock the Way <br>of the <span class="gold-text">FlHigh</span></h2>
+        <p>
+          You've arrived at the gateway. The <strong>SkyFlHigh Beginner's Guide</strong> is a complete breakdown of the foundation — stance, movement, defense, and the core combinations that build the FlHigh fighter.
+        </p>
+        <p>
+          This is your first real step toward Uhuru. Download it. Study it. Move with it.
+        </p>
+        <a href="skyflhigh_boxing_manual.pdf" class="download-btn" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Beginner's Guide
+        </a>
+        <div class="download-note">PDF — Free for members of the movement.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">SKYFLHIGH</div>
+        <div class="footer-motto">Rise. Inspire. FlHigh.</div>
+      </div>
+      <div class="footer-links">
+        <a href="#top">Top</a>
+        <a href="#welcome">Welcome</a>
+        <a href="#declaration">Declaration</a>
+        <a href="#philosophy">Philosophy</a>
+        <a href="#vocabulary">Vocabulary</a>
+        <a href="#merch">Merch</a>
+        <a href="#guide">Guide</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
