@@ -1522,10 +1522,10 @@
       max-width: 1100px;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
+      text-align: center;
+      gap: 4px;
     }
 
     .footer-brand {
@@ -1542,24 +1542,6 @@
       font-style: italic;
       color: var(--text-muted);
     }
-
-    .footer-links {
-      display: flex;
-      gap: 28px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .footer-links a:hover { color: var(--gold); }
 
     .footer-copy {
       margin-top: 20px;
@@ -1616,11 +1598,6 @@
       }
 
       .cover-taglines { gap: 4px; }
-
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
-      }
 
       .dedication::before { display: none; }
       .vocabulary::before { display: none; }
@@ -1991,17 +1968,6 @@
       <div>
         <div class="footer-brand">SKYFLHIGH</div>
         <div class="footer-motto">Rise. Inspire. FlHigh.</div>
-      </div>
-      <div class="footer-links">
-        <a href="#top">Top</a>
-        <a href="#welcome">Welcome</a>
-        <a href="#declaration">Declaration</a>
-        <a href="#philosophy">Philosophy</a>
-        <a href="#vocabulary">Vocabulary</a>
-        <a href="#champion">TNW</a>
-        <a href="#influencers">Movement</a>
-        <a href="#merch">Merch</a>
-        <a href="#guide">Guide</a>
       </div>
       <div class="footer-copy">© 2026 SkyFlHigh. All rights reserved. Crafted for the bold.</div>
     </div>
