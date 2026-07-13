@@ -13,27 +13,28 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="SkyFlHigh Magazine — Rise. Inspire. FlHigh">
   <meta name="twitter:description" content="Welcome to the movement. Discover the SkyFlHigh philosophy, vocabulary, and access the Beginner's Guide.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23FFD60A%22 font-family=%22Montserrat%22 font-weight=%22900%22>SF</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23D4AF37%22 font-family=%22Montserrat%22 font-weight=%22900%22>SF</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,300;1,500;1,700&family=Montserrat:wght@700;800;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0A0A0A;
-      --black-2: #0D0D0D;
-      --black-3: #111111;
-      --surface: #161616;
-      --surface-2: #1C1C1C;
-      --border: #222222;
-      --text: #F5F5F7;
-      --text-muted: #8E8E93;
-      --gold: #FFD60A;
-      --gold-light: #FFE44D;
-      --gold-dark: #C5A028;
-      --gold-subtle: rgba(255, 214, 10, 0.08);
+      --black: #050505;
+      --black-2: #090909;
+      --black-3: #0E0E0E;
+      --surface: #111111;
+      --surface-2: #161616;
+      --border: #1C1C1C;
+      --text: #F0EFED;
+      --text-muted: #8A8986;
+      --gold: #D4AF37;
+      --gold-light: #E8C55A;
+      --gold-dark: #B8942F;
+      --gold-subtle: rgba(212, 175, 55, 0.07);
+      --cream: #F0EFED;
+      --nav-height: 64px;
     }
 
     html { scroll-behavior: smooth; }
@@ -44,6 +45,7 @@
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     section { position: relative; }
@@ -51,73 +53,312 @@
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
     }
 
     h1, h2, h3, h4 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 1.1;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      line-height: 1.05;
     }
 
+    .sans { font-family: 'Montserrat', sans-serif; }
+
     .section-label {
-      font-size: 11px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 4px;
+      letter-spacing: 5px;
       color: var(--gold);
       text-transform: uppercase;
       margin-bottom: 16px;
     }
 
     .section-title {
-      font-size: clamp(28px, 5vw, 48px);
+      font-size: clamp(36px, 5.5vw, 56px);
       margin-bottom: 20px;
-      color: #FFF;
+      color: var(--cream);
     }
+
+    .section-title .gold { color: var(--gold); }
 
     .section-sub {
       font-size: clamp(15px, 2vw, 18px);
       color: var(--text-muted);
-      font-weight: 400;
-      max-width: 640px;
+      font-weight: 300;
+      max-width: 620px;
       line-height: 1.7;
     }
 
     .gold-text { color: var(--gold); }
-    .text-muted { color: var(--text-muted); }
 
     .divider {
-      width: 60px;
-      height: 3px;
+      width: 48px;
+      height: 1px;
       background: var(--gold);
-      margin: 24px 0;
+      margin: 20px 0;
     }
 
-    .divider-center { margin: 24px auto; }
+    .divider-center { margin: 20px auto; }
 
-    /* ══════════════════════════════════════════ COVER ════════════════════════ */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 6px;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--gold-dark);
+      opacity: 0.4;
+    }
+
+    /* ═══════════════════════════════════════════ SCROLL BAR ══════════════ */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold));
+      z-index: 1001;
+      transition: width 0.1s linear;
+    }
+
+    /* ═══════════════════════════════════════════ STICKY NAV ═══════════════ */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transform: translateY(-100%);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    }
+
+    .site-nav.visible {
+      transform: translateY(0);
+      border-bottom-color: rgba(212, 175, 55, 0.08);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      perspective: 800px;
+    }
+
+    .nav-logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: transform 0.1s ease;
+      will-change: transform;
+    }
+
+    .nav-logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 11px;
+      letter-spacing: 5px;
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--gold);
+      font-size: 22px;
+      cursor: pointer;
+      padding: 4px 8px;
+      line-height: 1;
+    }
+
+    /* ═══════════════════════════════════════════ REVEAL ══════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+    .reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+    .reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+    .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+    .reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+    .reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+    .reveal-stagger.visible > *:nth-child(7) { transition-delay: 0.6s; }
+    .reveal-stagger.visible > *:nth-child(8) { transition-delay: 0.7s; }
+
+    .reveal-stagger.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════════ 3D TILT ═════════════════ */
+    .tilt-3d {
+      transform-style: preserve-3d;
+      perspective: 800px;
+      transition: transform 0.1s ease;
+    }
+
+    .tilt-3d:hover {
+      will-change: transform;
+    }
+
+    /* ═══════════════════════════════════════════ COVER ════════════════════ */
     .cover {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 40px 24px;
-      background: radial-gradient(ellipse at 50% 30%, #1a1800 0%, var(--black) 65%);
+      padding: 48px 28px;
+      background: radial-gradient(ellipse at 50% 25%, #12100A 0%, var(--black) 70%);
       position: relative;
       overflow: hidden;
+    }
+
+    .cover-decor {
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(180px, 30vw, 400px);
+      color: rgba(212, 175, 55, 0.03);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      line-height: 1;
+      letter-spacing: 8px;
     }
 
     .cover::before {
       content: '';
       position: absolute;
-      top: -20%;
-      right: -10%;
-      width: 500px;
-      height: 500px;
+      top: -30%;
+      right: -8%;
+      width: 600px;
+      height: 600px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,214,10,0.04) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
       pointer-events: none;
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+      opacity: 0.3;
     }
 
     .cover-top {
@@ -131,17 +372,16 @@
     .cover-brand {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 13px;
-      letter-spacing: 6px;
+      font-size: 12px;
+      letter-spacing: 8px;
       color: var(--gold);
     }
 
     .cover-edition {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-style: italic;
       color: var(--text-muted);
-      text-transform: uppercase;
     }
 
     .cover-center {
@@ -151,101 +391,141 @@
       justify-content: center;
       position: relative;
       z-index: 2;
-      padding: 60px 0;
+      padding: 80px 0;
     }
 
     .cover-motto {
-      font-size: clamp(12px, 1.5vw, 15px);
-      font-weight: 700;
-      letter-spacing: 5px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(13px, 1.5vw, 16px);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 6px;
       color: var(--gold);
-      text-transform: uppercase;
       margin-bottom: 24px;
     }
 
     .cover-title {
-      font-size: clamp(48px, 12vw, 120px);
-      font-weight: 900;
-      line-height: 1;
-      text-transform: uppercase;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 13vw, 130px);
+      font-weight: 700;
+      line-height: 0.95;
+      color: var(--cream);
       letter-spacing: -2px;
-      color: #FFF;
     }
 
-    .cover-title .gold { color: var(--gold); }
+    .cover-title .gold {
+      color: var(--gold);
+      font-style: italic;
+    }
 
     .cover-taglines {
-      margin-top: 32px;
+      margin-top: 36px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
     }
 
     .cover-tagline {
-      font-size: clamp(14px, 2vw, 20px);
-      font-weight: 600;
+      font-size: clamp(13px, 1.6vw, 18px);
+      font-weight: 300;
       color: var(--text-muted);
-      letter-spacing: 1px;
+      letter-spacing: 3px;
+      font-family: 'Outfit', sans-serif;
     }
 
-    .cover-tagline .highlight { color: var(--gold-light); font-weight: 800; }
+    .cover-tagline .highlight {
+      color: var(--gold-light);
+      font-weight: 600;
+    }
 
     .cover-bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid var(--border);
       padding-top: 24px;
       position: relative;
       z-index: 2;
     }
 
     .cover-bottom-text {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      font-style: italic;
       color: var(--text-muted);
     }
 
     .cover-scroll {
-      font-size: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
       color: var(--text-muted);
-      letter-spacing: 2px;
+      letter-spacing: 4px;
       text-transform: uppercase;
       display: flex;
       align-items: center;
       gap: 8px;
+      cursor: pointer;
     }
 
     .cover-scroll span {
       display: inline-block;
-      animation: scrollPulse 2s ease-in-out infinite;
+      animation: scrollPulse 2.4s ease-in-out infinite;
     }
 
     @keyframes scrollPulse {
-      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      0%, 100% { transform: translateY(0); opacity: 0.4; }
       50% { transform: translateY(4px); opacity: 1; }
     }
 
-    /* ══════════════════════════════════════════ WELCOME ═════════════════════ */
+    /* ═══════════════════════════════════════════ COVER PARTICLES ═════════ */
+    #particle-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ═══════════════════════════════════════════ WELCOME ═════════════════ */
     .welcome {
-      padding: 100px 0 80px;
+      padding: 120px 0 100px;
       background: var(--black-2);
+    }
+
+    .welcome::before {
+      content: 'WELCOME';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(140px, 20vw, 280px);
+      color: rgba(212, 175, 55, 0.025);
+      top: 20%;
+      right: -5%;
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 10px;
     }
 
     .welcome-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 64px;
       align-items: center;
     }
 
     .welcome-image {
       width: 100%;
-      border-radius: 20px;
+      border-radius: 4px;
       overflow: hidden;
-      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .welcome-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(212, 175, 55, 0.08);
+      border-radius: 4px;
+      pointer-events: none;
     }
 
     .welcome-image img {
@@ -253,6 +533,11 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .welcome-image:hover img {
+      transform: scale(1.03);
     }
 
     .welcome-content .divider { margin-left: 0; }
@@ -261,25 +546,35 @@
       color: var(--text-muted);
       font-size: 16px;
       line-height: 1.8;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      font-weight: 300;
     }
 
-    .welcome-text strong { color: var(--text); }
+    .welcome-text strong { color: var(--text); font-weight: 600; }
 
     .welcome-text .em {
       color: var(--gold);
-      font-weight: 700;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1em;
     }
 
     .welcome-quote {
-      margin-top: 32px;
-      padding: 24px 32px;
+      margin-top: 36px;
+      padding: 28px 36px;
       background: var(--black-3);
-      border-left: 3px solid var(--gold);
-      border-radius: 0 12px 12px 0;
+      border-left: 2px solid var(--gold);
+      position: relative;
+      transition: border-color 0.4s ease, background 0.4s ease;
+    }
+
+    .welcome-quote:hover {
+      border-left-color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.03);
     }
 
     .welcome-quote p {
+      font-family: 'Cormorant Garamond', serif;
       font-size: 18px;
       font-style: italic;
       color: var(--text-muted);
@@ -288,60 +583,295 @@
 
     .welcome-quote .attribution {
       margin-top: 12px;
-      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
       font-weight: 800;
       color: var(--gold);
       font-style: normal;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-transform: uppercase;
     }
 
-    /* ══════════════════════════════════════════ DEDICATION ══════════════════ */
+    /* ═══════════════════════════════════════════ DEDICATION ═══════════════ */
     .dedication {
-      padding: 100px 0;
+      padding: 120px 0;
       background: var(--black);
       text-align: center;
+      position: relative;
+    }
+
+    .dedication::before {
+      content: 'DEDICATION';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(120px, 18vw, 260px);
+      color: rgba(212, 175, 55, 0.025);
+      top: 10%;
+      left: -3%;
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 12px;
     }
 
     .dedication-content {
-      max-width: 700px;
+      max-width: 680px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
     .dedication-text {
-      font-size: clamp(17px, 2.5vw, 22px);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2.8vw, 24px);
       font-style: italic;
       color: var(--text-muted);
-      line-height: 1.9;
+      line-height: 2;
+      font-weight: 300;
     }
 
     .dedication-text strong {
       color: var(--text);
       font-style: normal;
+      font-weight: 700;
     }
 
     .dedication-signoff {
-      margin-top: 32px;
-      font-size: 14px;
+      margin-top: 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
       font-weight: 800;
       color: var(--gold);
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       text-transform: uppercase;
     }
 
-    /* ══════════════════════════════════════════ DECLARATION ════════════════ */
+    /* ═══════════════════════════════════════════ CHAMPION ════════════════ */
+    .champion {
+      padding: 120px 0;
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .champion::before {
+      content: 'TNW';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(160px, 22vw, 320px);
+      color: rgba(212, 175, 55, 0.025);
+      top: 50%;
+      right: -4%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 12px;
+    }
+
+    .champion-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .champion-header .section-sub {
+      margin: 0 auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    .champion-video-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      background: var(--black-3);
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    .champion-video {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+      max-height: 70vh;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .champion-video-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(212, 175, 55, 0.06);
+      pointer-events: none;
+    }
+
+    .champion-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(5, 5, 5, 0.55);
+      cursor: pointer;
+      transition: opacity 0.6s ease;
+      z-index: 2;
+    }
+
+    .champion-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .champion-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .champion-play-btn {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .champion-play-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid rgba(212, 175, 55, 0.4);
+      transition: border-color 0.5s ease, transform 0.5s ease;
+    }
+
+    .champion-play-btn::after {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      transition: border-color 0.5s ease, transform 0.5s ease;
+    }
+
+    .champion-play-btn svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--gold);
+      margin-left: 5px;
+      filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.3));
+      transition: filter 0.5s ease;
+    }
+
+    @keyframes goldPulse {
+      0%, 100% { box-shadow: 0 0 12px rgba(212, 175, 55, 0.15); }
+      50% { box-shadow: 0 0 28px rgba(212, 175, 55, 0.3); }
+    }
+
+    .champion-play-btn {
+      animation: goldPulse 3s ease-in-out infinite;
+    }
+
+    .champion-overlay:hover .champion-play-btn {
+      transform: scale(1.08);
+    }
+
+    .champion-overlay:hover .champion-play-btn::before {
+      border-color: rgba(212, 175, 55, 0.7);
+      transform: scale(1.04);
+    }
+
+    .champion-overlay:hover .champion-play-btn::after {
+      border-color: rgba(212, 175, 55, 0.2);
+      transform: scale(1.06);
+    }
+
+    .champion-overlay:hover .champion-play-btn svg {
+      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.6));
+    }
+
+    .champion-overlay-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: 6px;
+      color: var(--gold);
+      opacity: 0.8;
+      transition: opacity 0.4s ease;
+    }
+
+    .champion-overlay:hover .champion-overlay-text {
+      opacity: 1;
+    }
+
+    .champion-overlay-text::before,
+    .champion-overlay-text::after {
+      content: '—';
+      margin: 0 12px;
+      opacity: 0.3;
+    }
+
+    .champion-caption {
+      max-width: 640px;
+      margin: 28px auto 0;
+      text-align: center;
+    }
+
+    .champion-caption p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(17px, 2.4vw, 22px);
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .champion-caption strong {
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════════════════ DECLARATION ═════════════ */
     .declaration {
-      padding: 100px 0;
+      padding: 120px 0;
       background: var(--black-2);
+      position: relative;
+    }
+
+    .declaration::after {
+      content: 'FLHIGH';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(160px, 22vw, 300px);
+      color: rgba(212, 175, 55, 0.02);
+      bottom: 5%;
+      right: -3%;
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 12px;
     }
 
     .declaration-card {
-      max-width: 780px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 60px 48px;
+      padding: 64px 56px;
       background: var(--black-3);
       border: 1px solid var(--border);
-      border-radius: 24px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -353,293 +883,637 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold-light), var(--gold-dark), transparent);
     }
 
     .declaration-card::after {
       content: '✦';
       position: absolute;
-      top: 24px;
-      right: 32px;
-      font-size: 24px;
+      top: 20px;
+      right: 28px;
+      font-size: 16px;
       color: var(--gold);
-      opacity: 0.3;
+      opacity: 0.2;
     }
 
     .declaration-badge {
       display: inline-block;
-      padding: 8px 20px;
-      border: 1px solid var(--gold);
-      border-radius: 99px;
-      font-size: 10px;
+      padding: 6px 18px;
+      border: 1px solid var(--gold-dark);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
       font-weight: 800;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       color: var(--gold);
       text-transform: uppercase;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .declaration-card h2 {
-      font-size: clamp(28px, 4vw, 40px);
-      margin-bottom: 24px;
+      font-size: clamp(32px, 4.5vw, 44px);
+      margin-bottom: 28px;
     }
 
     .declaration-card p {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--text-muted);
       line-height: 1.8;
       margin-bottom: 16px;
+      font-weight: 300;
     }
 
-    .declaration-card .em-gold { color: var(--gold); font-weight: 700; }
+    .declaration-card .em-gold {
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .declaration-card .divider { margin: 24px auto; }
 
     .declaration-signoff {
       margin-top: 32px;
       padding-top: 24px;
       border-top: 1px solid var(--border);
-      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       color: var(--gold);
       text-transform: uppercase;
     }
 
-    /* ══════════════════════════════════════════ PHILOSOPHY ═════════════════ */
+    /* ═══════════════════════════════════════════ PHILOSOPHY ══════════════ */
     .philosophy {
-      padding: 100px 0;
+      padding: 120px 0;
       background: var(--black);
+      position: relative;
+    }
+
+    .philosophy::before {
+      content: 'RISE · INSPIRE · FLHIGH';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(100px, 14vw, 200px);
+      color: rgba(212, 175, 55, 0.02);
+      bottom: 0;
+      right: -5%;
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 6px;
+      white-space: nowrap;
     }
 
     .philosophy-header {
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 64px;
+    }
+
+    .philosophy-header .section-sub {
+      margin: 0 auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
     }
 
     .philosophy-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 2px;
+      background: var(--border);
     }
 
     .philosophy-card {
-      padding: 40px 32px;
+      padding: 48px 36px;
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
       text-align: center;
-      transition: border-color 0.3s ease, transform 0.3s ease;
+      transition: background 0.4s ease;
+      cursor: default;
     }
 
     .philosophy-card:hover {
-      border-color: var(--gold-dark);
-      transform: translateY(-4px);
+      background: var(--surface-2);
     }
 
     .philosophy-card .icon {
-      font-size: 36px;
+      font-size: 32px;
       margin-bottom: 20px;
       display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .philosophy-card:hover .icon {
+      transform: scale(1.2);
     }
 
     .philosophy-card h3 {
-      font-size: 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
       margin-bottom: 12px;
       color: var(--gold);
+      font-weight: 700;
     }
 
     .philosophy-card p {
       font-size: 14px;
       color: var(--text-muted);
       line-height: 1.7;
+      font-weight: 300;
     }
 
-    /* ══════════════════════════════════════════ VOCABULARY ═════════════════ */
+    /* ═══════════════════════════════════════════ VOCABULARY ══════════════ */
     .vocabulary {
-      padding: 100px 0;
+      padding: 120px 0;
       background: var(--black-2);
+      position: relative;
+    }
+
+    .vocabulary::before {
+      content: 'VOCAB';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(140px, 20vw, 280px);
+      color: rgba(212, 175, 55, 0.025);
+      top: 15%;
+      left: -4%;
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 16px;
     }
 
     .vocab-header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 52px;
+    }
+
+    .vocab-header .section-sub {
+      margin: 0 auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
     }
 
     .vocab-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 2px;
       max-width: 800px;
       margin: 0 auto;
+      background: var(--border);
     }
 
     .vocab-item {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      padding: 28px 32px;
+      padding: 32px 36px;
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+      cursor: default;
+      transition: background 0.4s ease, transform 0.3s ease;
+    }
+
+    .vocab-item:hover {
+      background: var(--surface-2);
+      transform: translateY(-2px);
     }
 
     .vocab-term {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 20px;
-      font-weight: 900;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 700;
       color: var(--gold);
-      text-transform: uppercase;
+      font-style: italic;
     }
 
     .vocab-pronounce {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 400;
       font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 300;
+      letter-spacing: 1px;
     }
 
     .vocab-def {
       font-size: 14px;
       color: var(--text-muted);
-      line-height: 1.6;
-      margin-top: 4px;
+      line-height: 1.7;
+      margin-top: 6px;
+      font-weight: 300;
     }
 
-    .vocab-def strong { color: var(--text); }
+    .vocab-def strong { color: var(--text); font-weight: 600; }
+    .vocab-def em { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); }
 
-    /* ══════════════════════════════════════════ MERCH ══════════════════════ */
-    .merch {
-      padding: 100px 0;
+    /* ═══════════════════════════════════════════ INFLUENCERS ═════════════ */
+    .influencers {
+      padding: 120px 0;
       background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .influencers::before {
+      content: 'MOVEMENT';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(120px, 18vw, 260px);
+      color: rgba(212, 175, 55, 0.02);
+      bottom: -5%;
+      left: -3%;
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 16px;
+    }
+
+    .influencer-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .influencer-header .section-sub {
+      margin: 0 auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    .carousel-wrap {
+      position: relative;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .influencer-card {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.4s ease,
+                  box-shadow 0.4s ease;
+      cursor: default;
+    }
+
+    .influencer-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(212, 175, 55, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(212, 175, 55, 0.05);
+    }
+
+    .influencer-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 28px;
+      color: var(--cream);
+      transition: transform 0.4s ease;
+      position: relative;
+    }
+
+    .influencer-card:hover .influencer-avatar {
+      transform: scale(1.08);
+    }
+
+    .influencer-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .influencer-card:hover .influencer-avatar::after {
+      opacity: 1;
+    }
+
+    .influencer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+
+    .influencer-role {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .influencer-tag {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .carousel-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+
+    .carousel-btn:hover {
+      border-color: var(--gold-dark);
+      color: var(--gold);
+      background: var(--gold-subtle);
+    }
+
+    /* ═══════════════════════════════════════════ MERCH ═══════════════════ */
+    .merch {
+      padding: 120px 0;
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .merch::before {
+      content: 'CRAFTED';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(140px, 20vw, 280px);
+      color: rgba(212, 175, 55, 0.02);
+      top: 50%;
+      right: -5%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 14px;
     }
 
     .merch-header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 52px;
     }
 
-    .merch-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .merch-image {
-      width: 100%;
-      border-radius: 20px;
+    .merch-carousel-wrap {
+      position: relative;
       overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+
+    .merch-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .merch-card {
+      width: 300px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.4s ease,
+                  box-shadow 0.4s ease;
+      cursor: default;
+    }
+
+    .merch-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212, 175, 55, 0.15);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .merch-card-img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .merch-card:hover .merch-card-img {
+      transform: scale(1.04);
+    }
+
+    .merch-card-placeholder {
+      width: 100%;
+      height: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: transform 0.4s ease;
+    }
+
+    .merch-card:hover .merch-card-placeholder {
+      transform: scale(1.02);
+    }
+
+    .merch-card-placeholder .icon {
+      font-size: 36px;
+      opacity: 0.3;
+    }
+
+    .merch-card-placeholder .product-initials {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: rgba(212, 175, 55, 0.25);
+      letter-spacing: 4px;
+    }
+
+    .merch-card-body {
+      padding: 20px 20px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .merch-card-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 7px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .merch-card-badge.on-model {
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .merch-card-badge.off-model {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
       border: 1px solid var(--border);
     }
 
-    .merch-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .merch-info h3 {
-      font-size: clamp(22px, 3vw, 32px);
-      margin-bottom: 16px;
-    }
-
-    .merch-info p {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.8;
-      margin-bottom: 16px;
-    }
-
-    .merch-tag {
-      display: inline-block;
-      padding: 6px 16px;
-      background: var(--gold-subtle);
-      border: 1px solid rgba(255,214,10,0.15);
-      border-radius: 99px;
-      font-size: 11px;
+    .merch-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
       font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 4px;
     }
 
-    .merch-label {
-      margin-top: 24px;
-      font-size: 10px;
+    .merch-card-tagline {
+      font-size: 12px;
       color: var(--text-muted);
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      font-weight: 300;
+      font-style: italic;
     }
 
-    /* ══════════════════════════════════════════ DOWNLOAD ═══════════════════ */
+    /* ═══════════════════════════════════════════ DOWNLOAD ════════════════ */
     .download {
-      padding: 120px 0;
-      background: radial-gradient(ellipse at 50% 50%, #1a1800 0%, var(--black) 65%);
+      padding: 140px 0;
+      background: radial-gradient(ellipse at 50% 40%, #12100A 0%, var(--black) 70%);
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download::before {
+      content: 'U H U R U';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(100px, 16vw, 240px);
+      color: rgba(212, 175, 55, 0.025);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 24px;
+      white-space: nowrap;
     }
 
     .download-content {
-      max-width: 640px;
+      max-width: 620px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
-    .download-content .divider { margin: 24px auto; }
+    .download-content .divider { margin: 20px auto; }
 
     .download-content h2 {
-      font-size: clamp(30px, 5vw, 50px);
+      font-size: clamp(34px, 5vw, 52px);
     }
 
     .download-content p {
       font-size: 16px;
       color: var(--text-muted);
       line-height: 1.8;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
+      font-weight: 300;
     }
 
     .download-btn {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding: 18px 40px;
-      background: var(--gold);
-      color: var(--black);
+      gap: 14px;
+      padding: 16px 38px;
+      background: transparent;
+      color: var(--gold);
       font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 14px;
+      font-weight: 800;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      border: none;
-      border-radius: 14px;
+      letter-spacing: 3px;
+      border: 1px solid var(--gold-dark);
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .download-btn:hover::before {
+      transform: scaleX(1);
+      transform-origin: left;
     }
 
     .download-btn:hover {
-      background: var(--gold-light);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(255,214,10,0.25);
-    }
-
-    .download-btn:active {
-      transform: translateY(0);
+      color: var(--black);
+      border-color: var(--gold);
     }
 
     .download-btn svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .download-btn:hover svg {
+      transform: translateY(2px);
     }
 
     .download-note {
       margin-top: 20px;
-      font-size: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-style: italic;
       color: var(--text-muted);
     }
 
-    /* ══════════════════════════════════════════ FOOTER ═════════════════════ */
+    /* ═══════════════════════════════════════════ FOOTER ══════════════════ */
     .footer {
-      padding: 40px 24px;
+      padding: 40px 28px;
       border-top: 1px solid var(--border);
       background: var(--black);
     }
@@ -657,23 +1531,25 @@
     .footer-brand {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 12px;
-      letter-spacing: 4px;
+      font-size: 10px;
+      letter-spacing: 6px;
       color: var(--gold);
     }
 
     .footer-motto {
-      font-size: 11px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      font-style: italic;
       color: var(--text-muted);
-      letter-spacing: 1px;
     }
 
     .footer-links {
       display: flex;
-      gap: 24px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
+      gap: 28px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 3px;
       text-transform: uppercase;
     }
 
@@ -685,23 +1561,34 @@
 
     .footer-links a:hover { color: var(--gold); }
 
-    /* ══════════════════════════════════════════ RESPONSIVE ═════════════════ */
+    .footer-copy {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    /* ═══════════════════════════════════════════ RESPONSIVE ══════════════ */
     @media (max-width: 1024px) {
       .philosophy-grid {
         grid-template-columns: 1fr 1fr;
+        gap: 2px;
       }
     }
 
     @media (max-width: 768px) {
       .welcome-grid {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 36px;
       }
 
-      .welcome-image {
-        order: -1;
-        max-height: 360px;
-      }
+      .welcome-image { order: -1; }
+      .welcome::before { display: none; }
 
       .philosophy-grid {
         grid-template-columns: 1fr;
@@ -711,12 +1598,14 @@
         grid-template-columns: 1fr;
       }
 
-      .merch-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
+      .merch-card {
+        width: 240px;
       }
 
-      .merch-image { order: -1; }
+      .merch-card-img,
+      .merch-card-placeholder {
+        height: 260px;
+      }
 
       .declaration-card {
         padding: 40px 24px;
@@ -732,28 +1621,101 @@
         flex-direction: column;
         text-align: center;
       }
+
+      .dedication::before { display: none; }
+      .vocabulary::before { display: none; }
+      .merch::before { display: none; }
+      .philosophy::before { display: none; }
+      .declaration::after { display: none; }
+      .influencers::before { display: none; }
+      .champion::before { display: none; }
+
+      .site-nav {
+        padding: 0 16px;
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .nav-links a {
+        font-size: 7px;
+        letter-spacing: 2px;
+      }
+
+      .influencer-card {
+        width: 180px;
+        padding: 20px 16px;
+      }
+
+      .nav-toggle { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(5, 5, 5, 0.95);
+        backdrop-filter: blur(16px);
+        padding: 16px 24px;
+        gap: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open { display: flex; }
     }
 
     @media (max-width: 480px) {
-      .container { padding: 0 16px; }
+      .container { padding: 0 20px; }
 
-      .welcome, .dedication, .declaration, .philosophy, .vocabulary, .merch, .download {
-        padding: 60px 0;
+      .welcome, .dedication, .champion, .declaration, .philosophy, .vocabulary, .influencers, .merch, .download {
+        padding: 80px 0;
       }
 
-      .cover { padding: 24px 16px; }
+      .cover { padding: 28px 20px; }
+
+      .nav-links a {
+        font-size: 6px;
+        letter-spacing: 1px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Sticky Nav -->
+  <nav class="site-nav" id="siteNav">
+    <a href="#top" class="nav-logo" id="navLogo">
+      <img src="Image folder/SkyFlHigh logo.jpeg" alt="SkyFlHigh" class="nav-logo-img" id="navLogoImg">
+      <span class="nav-logo-text">SKYFLHIGH</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#welcome">Welcome</a></li>
+      <li><a href="#declaration">Declaration</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#vocabulary">Vocab</a></li>
+      <li><a href="#champion">TNW</a></li>
+      <li><a href="#influencers">Movement</a></li>
+      <li><a href="#merch">Merch</a></li>
+      <li><a href="#guide">Guide</a></li>
+    </ul>
+  </nav>
+
   <!-- ════════════════════════════════════════════════════════════
        1. COVER
        ════════════════════════════════════════════════════════════ -->
   <section class="cover" id="top">
+    <canvas id="particle-canvas"></canvas>
+    <div class="cover-decor">FlHigh</div>
     <div class="cover-top">
       <div class="cover-brand">SKYFLHIGH</div>
-      <div class="cover-edition">Volume 01 — The Movement</div>
+      <div class="cover-edition">Volume One — The Movement</div>
     </div>
     <div class="cover-center">
       <div class="cover-motto">Rise. Inspire. FlHigh.</div>
@@ -767,36 +1729,36 @@
       </div>
     </div>
     <div class="cover-bottom">
-      <div class="cover-bottom-text">The Way of the FlHigh</div>
-      <div class="cover-scroll"><span>↓</span> Scroll to explore</div>
+      <div class="cover-bottom-text">The way of the FlHigh</div>
+      <div class="cover-scroll" onclick="document.getElementById('welcome').scrollIntoView({behavior:'smooth'})"><span>↓</span> Explore</div>
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       2. WELCOME TO SKYFLHIGH
+       2. WELCOME
        ════════════════════════════════════════════════════════════ -->
   <section class="welcome" id="welcome">
     <div class="container">
-      <div class="section-label">Welcome to the Movement</div>
+      <div class="section-label reveal">Welcome to the Movement</div>
       <div class="welcome-grid">
         <div class="welcome-content">
-          <h2 class="section-title">More Than a Brand.<br>It's a <span class="gold-text">Lifestyle</span>.</h2>
-          <div class="divider"></div>
-          <p class="welcome-text">
+          <h2 class="section-title reveal">More Than a Brand.<br>It's a <span class="gold">Lifestyle</span>.</h2>
+          <div class="divider reveal"></div>
+          <p class="welcome-text reveal">
             <strong>SkyFlHigh</strong> is not just a name on a tag — it's a mindset. A refusal to stay grounded. A commitment to rise — in the gym, in your craft, and in how you move through life.
           </p>
-          <p class="welcome-text">
+          <p class="welcome-text reveal">
             Whether you're throwing your first jab or taking your next big step, you belong to a crew that demands <span class="em">strictly high execution</span>. No lazy habits. No shortcuts.
           </p>
-          <p class="welcome-text">
+          <p class="welcome-text reveal">
             This magazine is your entry point. Inside, you'll find the philosophy, the vocabulary, and the first step toward <span class="em">Uhuru</span> — freedom.
           </p>
-          <div class="welcome-quote">
+          <div class="welcome-quote reveal">
             <p>"We don't believe in limits, and we don't believe in staying grounded. The name itself is our instruction manual: we look up, we rise, and we stay there."</p>
             <div class="attribution">— The SkyFlHigh Crew</div>
           </div>
         </div>
-        <div class="welcome-image">
+        <div class="welcome-image reveal-right">
           <img src="Image folder/SF 001.jpeg" alt="Athlete in SkyFlHigh training pants striking a fighting stance, embodying the FlHigh mindset" width="858" height="1280" loading="lazy">
         </div>
       </div>
@@ -809,41 +1771,73 @@
   <section class="dedication" id="dedication">
     <div class="container">
       <div class="dedication-content">
-        <div class="section-label">Dedication</div>
-        <div class="divider divider-center"></div>
-        <p class="dedication-text">
+        <div class="section-label reveal">Dedication</div>
+        <div class="ornament reveal"><span>✦</span></div>
+        <p class="dedication-text reveal">
           To those who show up when the gym is cold.<br>
           To the ones who understand that the quiet, boring reps build the loud, flashing wins.
         </p>
-        <div class="divider divider-center" style="margin-top: 40px;"></div>
-        <p class="dedication-text">
+        <div class="ornament reveal" style="margin: 36px auto;"><span>✦</span></div>
+        <p class="dedication-text reveal">
           <strong>This magazine is for you.</strong><br>
           Train hard. Stay balanced. Keep flying high.
         </p>
-        <div class="dedication-signoff">— SkyFlHigh</div>
+        <div class="dedication-signoff reveal">— SkyFlHigh</div>
       </div>
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       4. THE FLHIGH DECLARATION
+       4. THE CHAMPION
+       ════════════════════════════════════════════════════════════ -->
+  <section class="champion" id="champion">
+    <div class="container">
+      <div class="champion-header">
+        <div class="section-label reveal">The Champion</div>
+        <h2 class="section-title reveal"><span class="gold">TNW</span> <span style="font-size: 0.55em; display: block; margin-top: 4px;">(The Neighbourhood Wizard)</span></h2>
+        <p class="section-sub reveal" style="margin: 0 auto; max-width: 500px;">
+          <em>The Neighbourhood Wizard</em> — the first. The standard. Watch what it looks like when movement meets purpose.
+        </p>
+      </div>
+      <div class="champion-video-wrap reveal" id="videoWrap">
+        <div class="champion-overlay" id="videoOverlay">
+          <div class="champion-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+          </div>
+          <span class="champion-overlay-text">Play Video</span>
+        </div>
+        <video class="champion-video" id="championVideo" preload="metadata" playsinline>
+          <source src="HD video of 001.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="champion-caption reveal">
+        <p>
+          <strong>TNW (The Neighbourhood Wizard)</strong> — number 001 of the SkyFlHigh community. 
+          This is what strictly high execution looks like. This is what it means to FlHigh.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       5. THE FLHIGH DECLARATION
        ════════════════════════════════════════════════════════════ -->
   <section class="declaration" id="declaration">
     <div class="container">
-      <div class="declaration-card">
+      <div class="declaration-card reveal-scale">
         <div class="declaration-badge">Official Certification</div>
-        <h2>The FlHigh<br><span class="gold-text">Declaration</span></h2>
+        <h2>The FlHigh<br><span class="gold">Declaration</span></h2>
         <p>
           By reading this magazine front to back, you are no longer a spectator. You are declaring yourself ready to adopt the <span class="em-gold">FlHigh mindset</span> — to Rise, Inspire, and FlHigh.
         </p>
         <p>
           This is your first step toward <span class="em-gold">Uhuru</span>. Freedom from limits. Freedom from lazy habits. Freedom from the mindset that keeps you grounded.
         </p>
-        <div style="width: 40px; height: 1px; background: var(--gold-dark); margin: 24px auto;"></div>
+        <div class="divider divider-center"></div>
         <p>
           Absorb every page. Own the philosophy. When you reach the end, the first door opens — <span class="em-gold">the Beginner's Guide</span> awaits.
         </p>
-        <p style="font-style: italic; font-size: 15px; color: var(--gold);">
+        <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: var(--gold);">
           "The path isn't finished. But the first step? You've already taken it."
         </p>
         <div class="declaration-signoff">Signed — The SkyFlHigh Crew</div>
@@ -857,24 +1851,24 @@
   <section class="philosophy" id="philosophy">
     <div class="container">
       <div class="philosophy-header">
-        <div class="section-label">Our Philosophy</div>
-        <h2 class="section-title">The Way of <span class="gold-text">Movement</span></h2>
-        <p class="section-sub" style="margin: 0 auto;">
+        <div class="section-label reveal">Our Philosophy</div>
+        <h2 class="section-title reveal">The Way of <span class="gold">Movement</span></h2>
+        <p class="section-sub reveal">
           SkyFlHigh is built on movement — not just physical, but mental and spiritual. To move is to grow. To grow is to rise.
         </p>
       </div>
-      <div class="philosophy-grid">
-        <div class="philosophy-card">
+      <div class="philosophy-grid reveal-stagger">
+        <div class="philosophy-card tilt-3d">
           <span class="icon">🏔️</span>
           <h3>Rise</h3>
           <p>Elevate every aspect of your life. In the gym, at work, in your relationships — complacency is the enemy. The only direction is up.</p>
         </div>
-        <div class="philosophy-card">
+        <div class="philosophy-card tilt-3d">
           <span class="icon">🔥</span>
           <h3>Inspire</h3>
           <p>Your growth fuels others. When you move with purpose, you become the example. Show others what's possible when you refuse to stay grounded.</p>
         </div>
-        <div class="philosophy-card">
+        <div class="philosophy-card tilt-3d">
           <span class="icon">🦅</span>
           <h3>FlHigh</h3>
           <p>To fly high is to operate at your peak. It's the state where mind, body, and spirit move as one. No hesitation. No fear. Just flight.</p>
@@ -884,18 +1878,18 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       6. SKYFLHIGH VOCABULARY
+       6. VOCABULARY
        ════════════════════════════════════════════════════════════ -->
   <section class="vocabulary" id="vocabulary">
     <div class="container">
       <div class="vocab-header">
-        <div class="section-label">Speak the Culture</div>
-        <h2 class="section-title">SkyFlHigh <span class="gold-text">Vocabulary</span></h2>
-        <p class="section-sub" style="margin: 0 auto;">
+        <div class="section-label reveal">Speak the Culture</div>
+        <h2 class="section-title reveal">SkyFlHigh <span class="gold">Vocabulary</span></h2>
+        <p class="section-sub reveal">
           Every movement has its language. Here's how we speak.
         </p>
       </div>
-      <div class="vocab-grid">
+      <div class="vocab-grid reveal-stagger">
         <div class="vocab-item">
           <div class="vocab-term">FlHigh <span class="vocab-pronounce">/flaɪ haɪ/</span></div>
           <div class="vocab-def">To <strong>fly high</strong>. To operate at your peak state — mentally, physically, spiritually. The ultimate expression of the SkyFlHigh mindset. <em>"Stay focused and FlHigh."</em></div>
@@ -917,60 +1911,74 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       7. MERCH SHOWCASE
+       7. THE MOVEMENT — INFLUENCER CATALOG
        ════════════════════════════════════════════════════════════ -->
-  <section class="merch" id="merch">
+  <section class="influencers" id="influencers">
     <div class="container">
-      <div class="merch-header">
-        <div class="section-label">Wear the Movement</div>
-        <h2 class="section-title"><span class="gold-text">Crafted</span> for the Bold</h2>
-        <p class="section-sub" style="margin: 0 auto;">
-          SkyFlHigh merchandise is built for those who move with purpose. Premium quality. Bold design. Strictly high execution.
+      <div class="influencer-header">
+        <div class="section-label reveal">The Movement</div>
+        <h2 class="section-title reveal">Voices of <span class="gold">FlHigh</span></h2>
+        <p class="section-sub reveal">
+          The ones who live it, breathe it, and inspire others to rise. These are the faces of the movement.
         </p>
       </div>
-      <div class="merch-grid">
-        <div class="merch-image">
-          <img src="Image folder/SF 001 2.jpeg" alt="SkyFlHigh FlHigh Training Pants — premium athletic wear crafted for movement" width="591" height="1280" loading="lazy">
+      <div class="carousel-wrap reveal">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- Cards will be cloned by JS for seamless loop -->
         </div>
-        <div class="merch-info">
-          <div class="merch-tag">New Arrival</div>
-          <h3>FlHigh <span class="gold-text">Training Pants</span></h3>
-          <p>
-            Engineered for movement. Built for those who refuse to stay grounded. Our signature training pants combine premium comfort with the bold SkyFlHigh identity.
-          </p>
-          <p>
-            Whether you're in the gym or representing the movement on the streets, wear it with the knowledge that you're part of something bigger.
-          </p>
-          <div class="merch-label">More drops coming soon. Stay connected.</div>
-        </div>
+      </div>
+      <div class="carousel-controls reveal">
+        <button class="carousel-btn" id="carouselPrev">←</button>
+        <button class="carousel-btn" id="carouselNext">→</button>
       </div>
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       8. BEGINNER'S GUIDE ACCESS
+       8. MERCH
+       ════════════════════════════════════════════════════════════ -->
+  <section class="merch" id="merch">
+    <div class="container">
+      <div class="merch-header">
+        <div class="section-label reveal">Wear the Movement</div>
+        <h2 class="section-title reveal"><span class="gold">Crafted</span> for the Bold</h2>
+        <p class="section-sub reveal" style="margin: 0 auto;">
+          SkyFlHigh merchandise is built for those who move with purpose. Premium quality. Bold design. Strictly high execution.
+        </p>
+      </div>
+      <div class="merch-carousel-wrap reveal">
+        <div class="merch-track" id="merchTrack">
+          <!-- Cards generated by JS -->
+        </div>
+      </div>
+      <div class="carousel-controls reveal">
+        <button class="carousel-btn" id="merchPrev">←</button>
+        <button class="carousel-btn" id="merchNext">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       9. BEGINNER'S GUIDE ACCESS
        ════════════════════════════════════════════════════════════ -->
   <section class="download" id="guide">
     <div class="container">
       <div class="download-content">
-        <div class="section-label">Your Next Step</div>
-        <div class="divider divider-center"></div>
-        <h2>Unlock the Way <br>of the <span class="gold-text">FlHigh</span></h2>
-        <p>
-          You've arrived at the gateway. The <strong>SkyFlHigh Beginner's Guide</strong> is a complete breakdown of the foundation — stance, movement, defense, and the core combinations that build the FlHigh fighter.
+        <div class="section-label reveal">Your Next Step</div>
+        <div class="ornament reveal"><span>✦</span></div>
+        <h2 class="reveal">Unlock the Way <br>of the <span class="gold">FlHigh</span></h2>
+        <p class="reveal">
+          You've arrived at the gateway. The <strong>SkyFlHigh Beginner's Guide</strong> is a complete breakdown of the foundation — stance, movement, defense, and the core combinations that build the FlHigh fighter. This is your first real step toward Uhuru.
         </p>
-        <p>
-          This is your first real step toward Uhuru. Download it. Study it. Move with it.
-        </p>
-        <a href="skyflhigh_boxing_manual.pdf" class="download-btn" download>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <a href="skyflhigh_boxing_manual.pdf" class="download-btn reveal" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
           Get the Beginner's Guide
         </a>
-        <div class="download-note">PDF — Free for the FlHigh community.</div>
+        <div class="download-note reveal">PDF — Free for the FlHigh community.</div>
       </div>
     </div>
   </section>
@@ -990,11 +1998,389 @@
         <a href="#declaration">Declaration</a>
         <a href="#philosophy">Philosophy</a>
         <a href="#vocabulary">Vocabulary</a>
+        <a href="#champion">TNW</a>
+        <a href="#influencers">Movement</a>
         <a href="#merch">Merch</a>
         <a href="#guide">Guide</a>
       </div>
+      <div class="footer-copy">© 2026 SkyFlHigh. All rights reserved. Crafted for the bold.</div>
     </div>
   </footer>
 
+<script>
+// ═════════════════════════════════════════════════════════════════════
+// 1. Influencer data
+// ═════════════════════════════════════════════════════════════════════
+const influencers = [
+  { name: 'Kai Zenith',  role: 'Martial Artist',  tag: '"Rise every day"',        gradient: 'linear-gradient(135deg, #0A0A0A, #1A1A0A)' },
+  { name: 'Nova Storm',  role: 'Movement Coach',  tag: '"Flow is freedom"',       gradient: 'linear-gradient(135deg, #0A0A0A, #1A0A0A)' },
+  { name: 'Zara Reign',  role: 'Fitness Athlete', tag: '"Strictly high exec"',    gradient: 'linear-gradient(135deg, #0A0A0A, #0A1A0A)' },
+  { name: 'Axel Blaze',  role: 'Boxer',           tag: '"No lazy habits"',        gradient: 'linear-gradient(135deg, #0A0A0A, #0A0A1A)' },
+  { name: 'Luna Creed',  role: 'Yoga & Breath',   tag: '"Balance is power"',      gradient: 'linear-gradient(135deg, #0A0A0A, #1A0A1A)' },
+  { name: 'Ryo Vanguard',role: 'Calisthenics',    tag: '"The climb never ends"',  gradient: 'linear-gradient(135deg, #0A0A0A, #0A1A1A)' },
+  { name: 'Focused Mide',role: 'Movement Advocate',tag: '"Feel the freedom ooo 😭"', gradient: 'linear-gradient(135deg, #0A0A0A, #1A0A1A)' },
+  { name: 'Dante Thorne',role: 'Strength Coach',  tag: '"FlHigh or nothing"',     gradient: 'linear-gradient(135deg, #0A0A0A, #0A0A1A)' },
+];
+
+const goldGradients = [
+  'linear-gradient(135deg, #D4AF37, #B8942F)',
+  'linear-gradient(135deg, #E8C55A, #C49B2C)',
+  'linear-gradient(135deg, #C49B2C, #A8811E)',
+  'linear-gradient(135deg, #D4AF37, #C49B2C)',
+  'linear-gradient(135deg, #E8C55A, #B8942F)',
+  'linear-gradient(135deg, #B8942F, #D4AF37)',
+  'linear-gradient(135deg, #C49B2C, #E8C55A)',
+  'linear-gradient(135deg, #A8811E, #D4AF37)',
+];
+
+// ═════════════════════════════════════════════════════════════════════
+// 2. Build carousel
+// ═════════════════════════════════════════════════════════════════════
+const carouselTrack = document.getElementById('carouselTrack');
+
+function createCard(person, gradient, index) {
+  const div = document.createElement('div');
+  div.className = 'influencer-card';
+  const initial = person.name.charAt(0);
+  div.innerHTML = `
+    <div class="influencer-avatar" style="background: ${gradient};">${initial}</div>
+    <div class="influencer-name">${person.name}</div>
+    <div class="influencer-role">${person.role}</div>
+    <div class="influencer-tag">${person.tag}</div>
+  `;
+  return div;
+}
+
+// Render cards twice for seamless infinite loop
+for (let repeat = 0; repeat < 2; repeat++) {
+  influencers.forEach((person, i) => {
+    carouselTrack.appendChild(createCard(person, goldGradients[i % goldGradients.length], i));
+  });
+}
+
+// ═════════════════════════════════════════════════════════════════════
+// 3. Scroll progress bar
+// ═════════════════════════════════════════════════════════════════════
+const progressBar = document.getElementById('scrollProgress');
+
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = progress + '%';
+});
+
+// ═════════════════════════════════════════════════════════════════════
+// 4. Sticky nav visibility
+// ═════════════════════════════════════════════════════════════════════
+const siteNav = document.getElementById('siteNav');
+const coverSection = document.querySelector('.cover');
+
+window.addEventListener('scroll', () => {
+  const coverBottom = coverSection.offsetTop + coverSection.offsetHeight;
+  if (window.scrollY > coverBottom - 100) {
+    siteNav.classList.add('visible');
+  } else {
+    siteNav.classList.remove('visible');
+  }
+});
+
+// ═════════════════════════════════════════════════════════════════════
+// 5. Nav active link highlighting
+// ═════════════════════════════════════════════════════════════════════
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+
+function updateActiveLink() {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 150;
+    const bottom = top + section.offsetHeight;
+    if (window.scrollY >= top && window.scrollY < bottom) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+}
+
+window.addEventListener('scroll', updateActiveLink);
+
+// ═════════════════════════════════════════════════════════════════════
+// 6. Intersection Observer — scroll reveals
+// ═════════════════════════════════════════════════════════════════════
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-stagger').forEach(el => {
+  revealObserver.observe(el);
+});
+
+// ═════════════════════════════════════════════════════════════════════
+// 7. 3D Tilt on philosophy cards & merch image
+// ═════════════════════════════════════════════════════════════════════
+document.querySelectorAll('.tilt-3d').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+  });
+});
+
+// ═════════════════════════════════════════════════════════════════════
+// 8. Nav logo 3D mouse tracking
+// ═════════════════════════════════════════════════════════════════════
+const navLogoImg = document.getElementById('navLogoImg');
+const navLogo = document.getElementById('navLogo');
+
+navLogo.addEventListener('mousemove', (e) => {
+  const rect = navLogo.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+  const rotateX = ((y - centerY) / centerY) * -15;
+  const rotateY = ((x - centerX) / centerX) * 15;
+  navLogoImg.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.1)`;
+  navLogoImg.style.filter = 'brightness(1.2) drop-shadow(0 0 8px rgba(212,175,55,0.4))';
+});
+
+navLogo.addEventListener('mouseleave', () => {
+  navLogoImg.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+  navLogoImg.style.filter = 'none';
+});
+
+// ═════════════════════════════════════════════════════════════════════
+// 9. Cover particle canvas
+// ═════════════════════════════════════════════════════════════════════
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let animFrame;
+
+function resizeCanvas() {
+  const cover = document.querySelector('.cover');
+  canvas.width = cover.offsetWidth;
+  canvas.height = cover.offsetHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2.5 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.4;
+    this.speedY = (Math.random() - 0.5) * 0.4 - 0.15;
+    this.alpha = Math.random() * 0.5 + 0.15;
+    this.pulse = Math.random() * Math.PI * 2;
+  }
+  update() {
+    this.pulse += 0.02;
+    this.x += this.speedX;
+    this.y += this.speedY;
+    const currentAlpha = this.alpha * (0.6 + 0.4 * Math.sin(this.pulse));
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+      this.reset();
+    }
+    return currentAlpha;
+  }
+  draw(alpha) {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(212, 175, 55, ${alpha})`;
+    ctx.fill();
+  }
+}
+
+const particleCount = Math.min(60, Math.floor((canvas.width * canvas.height) / 15000));
+for (let i = 0; i < particleCount; i++) {
+  particles.push(new Particle());
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    const alpha = p.update();
+    p.draw(alpha);
+  });
+  animFrame = requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ═════════════════════════════════════════════════════════════════════
+// 10. Carousel auto-scroll (JS-driven smooth scrolling)
+// ═════════════════════════════════════════════════════════════════════
+function initCarousel(track, items, gap) {
+  let pos = 0;
+  let paused = false;
+  const speed = 0.4;
+  const cardWidth = items.length * gap;
+
+  function scroll() {
+    if (!paused) pos -= speed;
+    const totalWidth = items.length * gap;
+    if (Math.abs(pos) >= totalWidth) pos += totalWidth;
+    track.style.transform = `translateX(${pos}px)`;
+    animFrame = requestAnimationFrame(scroll);
+  }
+
+  track.addEventListener('mouseenter', () => { paused = true; });
+  track.addEventListener('mouseleave', () => { paused = false; });
+
+  scroll();
+
+  return {
+    prev() {
+      const step = gap;
+      const max = 0;
+      pos = Math.min(pos + step, max);
+      track.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      track.style.transform = `translateX(${pos}px)`;
+      setTimeout(() => { track.style.transition = 'none'; }, 450);
+    },
+    next() {
+      const step = gap;
+      const maxScroll = -(items.length * gap);
+      pos = Math.max(pos - step, maxScroll);
+      track.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      track.style.transform = `translateX(${pos}px)`;
+      setTimeout(() => { track.style.transition = 'none'; }, 450);
+    }
+  };
+}
+
+const infGap = 220 + 24;
+const infCarousel = initCarousel(
+  document.querySelector('.carousel-track'),
+  influencers,
+  infGap
+);
+
+document.getElementById('carouselPrev').addEventListener('click', () => infCarousel.prev());
+document.getElementById('carouselNext').addEventListener('click', () => infCarousel.next());
+
+// ═════════════════════════════════════════════════════════════════════
+// 11. Merch carousel
+// ═════════════════════════════════════════════════════════════════════
+const merchItems = [
+  { name: 'FlHigh Training Pants',  img: 'Image folder/SF 001 2.jpeg',              type: 'on-model',  tag: 'Premium athletic wear' },
+  { name: 'FlHigh Training Pants',  img: null,                                      type: 'off-model', tag: 'Engineered for movement' },
+  { name: 'Core FlHigh Tee',        img: 'Image folder/WhatsApp Image 2026-06-30 at 17.01.37.jpeg', type: 'on-model', tag: 'Strictly high execution' },
+  { name: 'Core FlHigh Tee',        img: null,                                      type: 'off-model', tag: 'Bold. Clean. FlHigh.' },
+  { name: 'FlHigh Compression Top', img: null,                                      type: 'on-model',  tag: 'Second-skin fit' },
+  { name: 'FlHigh Compression Top', img: null,                                      type: 'off-model', tag: 'Peak performance gear' },
+  { name: 'SkyFlHigh Cap',          img: null,                                      type: 'on-model',  tag: 'Top off the look' },
+  { name: 'SkyFlHigh Cap',          img: null,                                      type: 'off-model', tag: 'Premium structured fit' },
+  { name: 'FlHigh Gym Bag',         img: null,                                      type: 'off-model', tag: 'Carry the movement' },
+  { name: 'SkyFlHigh Crewneck',     img: null,                                      type: 'off-model', tag: 'Crafted for the bold' },
+];
+
+const merchGradients = [
+  'linear-gradient(135deg, #0E0A00, #1A1200)',
+  'linear-gradient(135deg, #0A0E00, #001A00)',
+  'linear-gradient(135deg, #0A000E, #1A0012)',
+  'linear-gradient(135deg, #000A0E, #00121A)',
+  'linear-gradient(135deg, #0E000A, #1A0012)',
+];
+
+const merchTrack = document.getElementById('merchTrack');
+
+function createMerchCard(item, gradient) {
+  const div = document.createElement('div');
+  div.className = 'merch-card';
+  const initials = item.name.split(' ').map(w => w[0]).join('');
+  const imgHtml = item.img
+    ? `<img class="merch-card-img" src="${item.img}" alt="${item.name}" loading="lazy">`
+    : `<div class="merch-card-placeholder" style="background:${gradient};">
+        <div class="product-initials">${initials}</div>
+       </div>`;
+  div.innerHTML = `
+    ${imgHtml}
+    <div class="merch-card-body">
+      <div class="merch-card-badge ${item.type}">${item.type === 'on-model' ? 'On Model' : 'Off Model'}</div>
+      <div class="merch-card-name">${item.name}</div>
+      <div class="merch-card-tagline">${item.tag}</div>
+    </div>
+  `;
+  return div;
+}
+
+for (let repeat = 0; repeat < 2; repeat++) {
+  merchItems.forEach((item, i) => {
+    merchTrack.appendChild(createMerchCard(item, merchGradients[i % merchGradients.length]));
+  });
+}
+
+const merchGap = 300 + 24;
+const merchCarousel = initCarousel(merchTrack, merchItems, merchGap);
+
+document.getElementById('merchPrev').addEventListener('click', () => merchCarousel.prev());
+document.getElementById('merchNext').addEventListener('click', () => merchCarousel.next());
+
+// ═════════════════════════════════════════════════════════════════════
+// 12. Video play/pause
+// ═════════════════════════════════════════════════════════════════════
+const championVideo = document.getElementById('championVideo');
+const videoOverlay = document.getElementById('videoOverlay');
+const videoWrap = document.getElementById('videoWrap');
+
+function toggleVideo() {
+  if (championVideo.paused) {
+    championVideo.play();
+    videoOverlay.classList.add('hidden');
+  } else {
+    championVideo.pause();
+    videoOverlay.classList.remove('hidden');
+  }
+}
+
+videoWrap.addEventListener('click', toggleVideo);
+
+championVideo.addEventListener('ended', () => {
+  videoOverlay.classList.remove('hidden');
+});
+
+// ═════════════════════════════════════════════════════════════════════
+// 13. Mobile nav toggle
+// ═════════════════════════════════════════════════════════════════════
+const navToggle = document.getElementById('navToggle');
+const navLinksContainer = document.getElementById('navLinks');
+
+navToggle.addEventListener('click', () => {
+  navLinksContainer.classList.toggle('open');
+});
+
+// Reset nav links display on resize
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    navLinksContainer.classList.remove('open');
+  }
+});
+
+console.log('%c SkyFlHigh Magazine ',
+  'background:#0A0A0A;color:#D4AF37;font-size:18px;font-weight:900;padding:8px 16px;border:1px solid #D4AF37;');
+console.log('%c Rise. Inspire. FlHigh. ',
+  'color:#8A8986;font-size:12px;font-style:italic;padding:4px 16px;');
+</script>
 </body>
 </html>
