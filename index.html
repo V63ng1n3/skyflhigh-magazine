@@ -944,6 +944,72 @@
       text-transform: uppercase;
     }
 
+    /* ═══════════════════════════════════════════ ORIGIN ════════════════════ */
+    .origin {
+      padding: 100px 0;
+      background: radial-gradient(ellipse at 50% 30%, #0E0B08 0%, var(--black) 70%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .origin::before {
+      content: 'ABU';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(140px, 20vw, 280px);
+      color: rgba(212, 175, 55, 0.025);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: 24px;
+      white-space: nowrap;
+    }
+
+    .origin-content {
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .origin-content .divider { margin: 0 auto 28px; }
+
+    .origin-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(18px, 2.6vw, 24px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .origin-text strong {
+      color: var(--gold);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .origin-text .em-gold {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .origin-signoff {
+      margin-top: 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
     /* ═══════════════════════════════════════════ PHILOSOPHY ══════════════ */
     .philosophy {
       padding: 120px 0;
@@ -1600,6 +1666,7 @@
       .cover-taglines { gap: 4px; }
 
       .dedication::before { display: none; }
+      .origin::before { display: none; }
       .vocabulary::before { display: none; }
       .merch::before { display: none; }
       .philosophy::before { display: none; }
@@ -1647,7 +1714,7 @@
     @media (max-width: 480px) {
       .container { padding: 0 20px; }
 
-      .welcome, .dedication, .champion, .declaration, .philosophy, .vocabulary, .influencers, .merch, .download {
+      .welcome, .dedication, .origin, .champion, .declaration, .philosophy, .vocabulary, .influencers, .merch, .download {
         padding: 80px 0;
       }
 
@@ -1673,14 +1740,15 @@
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#welcome">Welcome</a></li>
-      <li><a href="#declaration">Declaration</a></li>
-      <li><a href="#philosophy">Philosophy</a></li>
-      <li><a href="#vocabulary">Vocab</a></li>
-      <li><a href="#champion">TNW</a></li>
-      <li><a href="#influencers">Movement</a></li>
-      <li><a href="#merch">Merch</a></li>
-      <li><a href="#guide">Guide</a></li>
+        <li><a href="#welcome">Welcome</a></li>
+        <li><a href="#origin">Origin</a></li>
+        <li><a href="#declaration">Declaration</a></li>
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#vocabulary">Vocab</a></li>
+        <li><a href="#champion">TNW</a></li>
+        <li><a href="#influencers">Movement</a></li>
+        <li><a href="#merch">Merch</a></li>
+        <li><a href="#guide">Guide</a></li>
     </ul>
   </nav>
 
@@ -1765,15 +1833,35 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       4. THE CHAMPION
+       4. ORIGIN
+       ════════════════════════════════════════════════════════════ -->
+  <section class="origin" id="origin">
+    <div class="container">
+      <div class="origin-content">
+        <div class="section-label reveal">The Beginning</div>
+        <h2 class="section-title reveal">Where Did <span class="gold">SkyFlHigh</span> Start?</h2>
+        <div class="divider" style="margin: 0 auto 28px;"></div>
+        <p class="origin-text reveal">
+          At <strong>Afe Babalola University</strong>. A few visionaries believed. They trained. They documented the journey. They created a movement.
+        </p>
+        <p class="origin-text reveal">
+          They stayed <span class="em-gold">FlHigh</span> and inspired <span class="em-gold">Uhuru</span>.
+        </p>
+        <div class="origin-signoff reveal">SkyFlHigh forever.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       5. THE FOUNDER
        ════════════════════════════════════════════════════════════ -->
   <section class="champion" id="champion">
     <div class="container">
       <div class="champion-header">
-        <div class="section-label reveal">The Champion</div>
-        <h2 class="section-title reveal"><span class="gold">TNW</span> <span style="font-size: 0.55em; display: block; margin-top: 4px;">(The Neighbourhood Wizard)</span></h2>
-        <p class="section-sub reveal" style="margin: 0 auto; max-width: 500px;">
-          <em>The Neighbourhood Wizard</em> — the first. The standard. Watch what it looks like when movement meets purpose.
+        <div class="section-label reveal">The Founder</div>
+        <h2 class="section-title reveal"><span class="gold">TNW</span> <span style="font-size: 0.55em; display: block; margin-top: 4px;">(The Neighborhood Wizard)</span></h2>
+        <p class="section-sub reveal" style="margin: 0 auto; max-width: 560px;">
+          Founder #001 of the SkyFlHigh movement. This is where it all began — movement meeting purpose, vision becoming reality.
         </p>
       </div>
       <div class="champion-video-wrap reveal" id="videoWrap">
@@ -1784,20 +1872,20 @@
           <span class="champion-overlay-text">Play Video</span>
         </div>
         <video class="champion-video" id="championVideo" preload="metadata" playsinline>
-          <source src="HD video of 001.mp4" type="video/mp4">
+          <source src="champion_compressed.mp4" type="video/mp4">
         </video>
       </div>
       <div class="champion-caption reveal">
         <p>
-          <strong>TNW (The Neighbourhood Wizard)</strong> — number 001 of the SkyFlHigh community. 
-          This is what strictly high execution looks like. This is what it means to FlHigh.
+          <strong>TNW (The Neighborhood Wizard)</strong> — Founder #001 of the SkyFlHigh community.
+          SkyFlHigh is the <strong>home of champions</strong>. Today. Tomorrow. Forever. By the most FlHigh's grace.
         </p>
       </div>
     </div>
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       5. THE FLHIGH DECLARATION
+       6. THE FLHIGH DECLARATION
        ════════════════════════════════════════════════════════════ -->
   <section class="declaration" id="declaration">
     <div class="container">
@@ -1823,7 +1911,7 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       5. PHILOSOPHY OF MOVEMENT
+       7. PHILOSOPHY OF MOVEMENT
        ════════════════════════════════════════════════════════════ -->
   <section class="philosophy" id="philosophy">
     <div class="container">
@@ -1855,7 +1943,7 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       6. VOCABULARY
+       8. VOCABULARY
        ════════════════════════════════════════════════════════════ -->
   <section class="vocabulary" id="vocabulary">
     <div class="container">
@@ -1888,7 +1976,7 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       7. THE MOVEMENT — INFLUENCER CATALOG
+       9. THE MOVEMENT — INFLUENCER CATALOG
        ════════════════════════════════════════════════════════════ -->
   <section class="influencers" id="influencers">
     <div class="container">
@@ -1912,7 +2000,7 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       8. MERCH
+       10. MERCH
        ════════════════════════════════════════════════════════════ -->
   <section class="merch" id="merch">
     <div class="container">
@@ -1936,7 +2024,7 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       9. BEGINNER'S GUIDE ACCESS
+       11. BEGINNER'S GUIDE ACCESS
        ════════════════════════════════════════════════════════════ -->
   <section class="download" id="guide">
     <div class="container">
